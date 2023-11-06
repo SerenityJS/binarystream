@@ -116,6 +116,14 @@ impl BinaryStream {
   pub fn cursor_at_start(&self) -> Result<bool> {
     Ok(self.offset == 0)
   }
+
+  /**
+   * Gets the binary as a JavaScript Buffer.
+  */
+  #[napi]
+  pub fn get_buffer(&self) -> Result<Buffer> {
+    Ok(Buffer::from(self.binary.clone()))
+  }
 }
 
 #[napi]

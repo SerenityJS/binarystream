@@ -57,6 +57,10 @@ export class BinaryStream {
   */
   cursorAtStart(): boolean
   /**
+  * Gets the binary as a JavaScript Buffer.
+  */
+  getBuffer(): Buffer
+  /**
   * Reads a string from the stream.
   */
   readString(length: number): string
