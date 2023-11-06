@@ -133,13 +133,11 @@ impl BinaryStream {
    * Reads a string from the stream.
   */
   #[napi]
-  pub fn read_string(&mut self, length: u32) -> Result<String> {
-    let bytes = self.read(length)?;
-    let string = String::from_utf8(bytes);
-    match string {
-      Ok(string) => Ok(string),
-      Err(_) => Err(Error::new(Status::GenericFailure, "Invalid UTF-8")),
-    }
+  pub fn read_string(&mut self) -> Result<String> {
+    let len = self.read_uint16(Some(Endianness::Big))?;
+    let value = String::from_utf8_lossy(&&self.binary[self.offset as usize..self.offset as usize + len as usize]).to_string();
+    self.offset += len as u32;
+    Ok(value)
   }
 
   /**
@@ -147,6 +145,8 @@ impl BinaryStream {
   */
   #[napi]
   pub fn write_string(&mut self, data: String) -> Result<()> {
+    let len = data.len() as u16;
+    self.write_uint16(len, Some(Endianness::Big))?;
     self.write(data.as_bytes().to_vec())
   }
 }

@@ -63,7 +63,7 @@ export class BinaryStream {
   /**
   * Reads a string from the stream.
   */
-  readString(length: number): string
+  readString(): string
   /**
   * Writes a string to the stream.
   */
