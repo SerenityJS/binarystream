@@ -240,6 +240,25 @@ impl BinaryStream {
 }
 
 #[napi]
+// byte
+impl BinaryStream {
+  /**
+   * Reads an unsigned 8-bit ( 1 byte ) integer to the stream. ( 0 to 255 )
+  */
+  pub fn read_byte(&mut self) -> Result<i8> {
+    let bytes = self.read(1)?;
+    Ok(bytes[0] as i8)
+  }
+
+  /**
+   * Writes an unsigned 8-bit ( 1 byte ) integer to the stream. ( 0 to 255 )
+  */
+  pub fn write_byte(&mut self, data: i8) -> Result<()> {
+    self.write(vec![data as u8])
+  }
+}
+
+#[napi]
 // Unsigned 8-bit integer
 impl BinaryStream {
   /**

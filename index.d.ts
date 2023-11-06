@@ -82,6 +82,7 @@ export class BinaryStream {
   * Writes a boolean to the stream.
   */
   writeBool(data: boolean): void
+  
   /**
   * Reads an unsigned 8-bit ( 1 byte ) integer to the stream. ( 0 to 255 )
   */
