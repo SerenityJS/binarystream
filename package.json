@@ -1,9 +1,10 @@
 {
+  "name": "@serenityjs/binarystream",
   "version": "0.0.0",
   "main": "index.js",
   "types": "index.d.ts",
   "napi": {
-    "name": "serenityjs@binarystream",
+    "name": "binarystream",
     "triples": {}
   },
   "license": "MIT",
