@@ -409,6 +409,35 @@ impl BinaryStream {
 }
 
 #[napi]
+// Signed 24-bit integer
+impl BinaryStream {
+  /**
+   * Reads a signed 24-bit ( 3 bytes ) integer to the stream. ( -8388608 to 8388607 )
+  */
+  #[napi]
+  pub fn read_int24(&mut self, endian: Option<Endianness>) -> Result<i32> {
+    let endian = endian.unwrap_or(Endianness::Big);
+    let bytes = self.read(3)?;
+    match endian {
+      Endianness::Big => Ok(i32::from_be_bytes([0, bytes[0], bytes[1], bytes[2]])),
+      Endianness::Little => Ok(i32::from_le_bytes([0, bytes[0], bytes[1], bytes[2]])),
+    }
+  }
+
+  /**
+   * Writes a signed 24-bit ( 3 bytes ) integer to the stream. ( -8388608 to 8388607 )
+  */
+  #[napi]
+  pub fn write_int24(&mut self, data: i32, endian: Option<Endianness>) -> Result<()> {
+    let endian = endian.unwrap_or(Endianness::Big);
+    match endian {
+      Endianness::Big => self.write(data.to_be_bytes()[1..].to_vec()),
+      Endianness::Little => self.write(data.to_le_bytes()[1..].to_vec()),
+    }
+  }
+}
+
+#[napi]
 // Unsigned 32-bit integer
 impl BinaryStream {
   /**

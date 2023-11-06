@@ -131,6 +131,22 @@ export class BinaryStream {
   */
   writeShort(data: number, endian?: Endianness | undefined | null): void
   /**
+  * Reads an unsigned 24-bit ( 3 bytes ) integer to the stream. ( 0 to 16777215 )
+  */
+  readUint24(endian?: Endianness | undefined | null): number
+  /**
+  * Writes an unsigned 24-bit ( 3 bytes ) integer to the stream. ( 0 to 16777215 )
+  */
+  writeUint24(data: number, endian?: Endianness | undefined | null): void
+  /**
+  * Reads a signed 24-bit ( 3 bytes ) integer to the stream. ( -8388608 to 8388607 )
+  */
+  readInt24(endian?: Endianness | undefined | null): number
+  /**
+  * Writes a signed 24-bit ( 3 bytes ) integer to the stream. ( -8388608 to 8388607 )
+  */
+  writeInt24(data: number, endian?: Endianness | undefined | null): void
+  /**
   * Reads an unsigned 32-bit ( 4 bytes ) integer to the stream. ( 0 to 4294967295 )
   */
   readUint32(endian?: Endianness | undefined | null): number
