@@ -245,6 +245,7 @@ impl BinaryStream {
   /**
    * Reads an unsigned 8-bit ( 1 byte ) integer to the stream. ( 0 to 255 )
   */
+  #[napi]
   pub fn read_byte(&mut self) -> Result<i8> {
     let bytes = self.read(1)?;
     Ok(bytes[0] as i8)
@@ -253,6 +254,7 @@ impl BinaryStream {
   /**
    * Writes an unsigned 8-bit ( 1 byte ) integer to the stream. ( 0 to 255 )
   */
+  #[napi]
   pub fn write_byte(&mut self, data: i8) -> Result<()> {
     self.write(vec![data as u8])
   }
@@ -410,7 +412,7 @@ impl BinaryStream {
     let bytes = self.read(3)?;
     match endian {
       Endianness::Big => Ok(u32::from_be_bytes([0, bytes[0], bytes[1], bytes[2]])),
-      Endianness::Little => Ok(u32::from_le_bytes([0, bytes[0], bytes[1], bytes[2]])),
+      Endianness::Little => Ok(u32::from_le_bytes([bytes[0], bytes[1], bytes[2], 0])),
     }
   }
 
@@ -422,7 +424,7 @@ impl BinaryStream {
     let endian = endian.unwrap_or(Endianness::Big);
     match endian {
       Endianness::Big => self.write(data.to_be_bytes()[1..].to_vec()),
-      Endianness::Little => self.write(data.to_le_bytes()[1..].to_vec()),
+      Endianness::Little => self.write(data.to_le_bytes()[..3].to_vec()),
     }
   }
 }
@@ -439,7 +441,7 @@ impl BinaryStream {
     let bytes = self.read(3)?;
     match endian {
       Endianness::Big => Ok(i32::from_be_bytes([0, bytes[0], bytes[1], bytes[2]])),
-      Endianness::Little => Ok(i32::from_le_bytes([0, bytes[0], bytes[1], bytes[2]])),
+      Endianness::Little => Ok(i32::from_le_bytes([bytes[0], bytes[1], bytes[2], 0])),
     }
   }
 
@@ -451,7 +453,7 @@ impl BinaryStream {
     let endian = endian.unwrap_or(Endianness::Big);
     match endian {
       Endianness::Big => self.write(data.to_be_bytes()[1..].to_vec()),
-      Endianness::Little => self.write(data.to_le_bytes()[1..].to_vec()),
+      Endianness::Little => self.write(data.to_le_bytes()[..3].to_vec()),
     }
   }
 }
