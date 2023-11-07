@@ -1,15 +1,15 @@
 {
-  "name": "serenityjs@binarystream-darwin-x64",
-  "version": "1.0.0",
+  "name": "@serenityjs/binarystream-darwin-x64",
+  "version": "1.0.5",
   "os": [
     "darwin"
   ],
   "cpu": [
     "x64"
   ],
-  "main": "serenityjs@binarystream.darwin-x64.node",
+  "main": "binarystream.darwin-x64.node",
   "files": [
-    "serenityjs@binarystream.darwin-x64.node"
+    "binarystream.darwin-x64.node"
   ],
   "license": "MIT",
   "engines": {

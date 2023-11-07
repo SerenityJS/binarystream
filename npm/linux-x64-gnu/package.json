@@ -1,15 +1,15 @@
 {
-  "name": "serenityjs@binarystream-linux-x64-gnu",
-  "version": "1.0.0",
+  "name": "@serenityjs/binarystream-linux-x64-gnu",
+  "version": "1.0.5",
   "os": [
     "linux"
   ],
   "cpu": [
     "x64"
   ],
-  "main": "serenityjs@binarystream.linux-x64-gnu.node",
+  "main": "binarystream.linux-x64-gnu.node",
   "files": [
-    "serenityjs@binarystream.linux-x64-gnu.node"
+    "binarystream.linux-x64-gnu.node"
   ],
   "license": "MIT",
   "engines": {
