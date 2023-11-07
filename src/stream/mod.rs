@@ -165,8 +165,9 @@ impl BinaryStream {
   #[napi]
   pub fn write_big_string(&mut self, data: String) -> Result<()> {
     let length = data.len() as u32;
+    let vec = data.as_bytes().to_vec();
     self.write_var_int(length)?;
-    self.write_string(data)
+    self.write(vec)
   }
 }
 
