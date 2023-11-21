@@ -19,7 +19,15 @@ export class BinaryStream {
   /**
   * Creates a new BinaryStream with an optional JavaScript Buffer.
   */
-  constructor(buffer?: Buffer | undefined | null)
+  constructor(buffer?: Buffer | undefined | null, offset?: number | undefined | null)
+  /**
+  * Creates a new BinaryStream from a binary vector.
+  */
+  static from(binary: Array<number>, offset?: number | undefined | null): BinaryStream
+  /**
+  * Creates a new BinaryStream from a JavaScript Buffer.
+  */
+  static fromBuffer(buffer: Buffer, offset?: number | undefined | null): BinaryStream
   /**
   * Reads a number of bytes from the stream.
   */
@@ -47,7 +55,7 @@ export class BinaryStream {
   /**
   * Skips a number of bytes from the stream.
   */
-  skip(length: number): void
+  skip(length: number): number
   /**
   * Checks if the cursor is at the end of the stream.
   */

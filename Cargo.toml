@@ -1,7 +1,11 @@
 [package]
 edition = "2021"
-name = "serenityjs_binarystream"
-version = "0.0.0"
+name = "binarystream"
+version = "1.1.1"
+description = "Binarystream is a simple package designed to simplify streaming of binary data in Javascript, while being written in Rust."
+license-file = "LICENSE"
+readme = "README.md"
+repository = "https://github.com/SerenityJS/binarystream"
 
 [lib]
 crate-type = ["cdylib"]

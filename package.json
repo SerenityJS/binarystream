@@ -1,13 +1,14 @@
 {
   "name": "@serenityjs/binarystream",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "main": "index.js",
+  "description": "Binarystream is a simple package designed to simplify streaming of binary data in Javascript, while being written in Rust.",
   "types": "index.d.ts",
   "napi": {
     "name": "binarystream",
     "triples": {}
   },
-  "license": "MIT",
+  "license": "SEE LICENSE IN LICENSE",
   "devDependencies": {
     "@napi-rs/cli": "^2.16.5",
     "ava": "^5.1.1"
@@ -32,5 +33,18 @@
     "@serenityjs/binarystream-win32-x64-msvc": "1.1.0",
     "@serenityjs/binarystream-darwin-x64": "1.1.0",
     "@serenityjs/binarystream-linux-x64-gnu": "1.1.0"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SerenityJS/binarystream.git"
+  },
+  "keywords": [
+    "binary",
+    "stream"
+  ],
+  "author": "SerenityJS",
+  "bugs": {
+    "url": "https://github.com/SerenityJS/binarystream/issues"
+  },
+  "homepage": "https://github.com/SerenityJS/binarystream#readme"
 }
