@@ -1,14 +1,15 @@
 [package]
 edition = "2021"
 name = "binarystream"
-version = "1.1.1"
+version = "1.1.4"
 description = "Binarystream is a simple package designed to simplify streaming of binary data in Javascript, while being written in Rust."
 license-file = "LICENSE"
 readme = "README.md"
 repository = "https://github.com/SerenityJS/binarystream"
+documentation = "https://docs.rs/binarystream"
 
 [lib]
-crate-type = ["cdylib"]
+crate-type = ["cdylib", "rlib"]
 
 [dependencies]
 # Default enable napi4 feature, see https://nodejs.org/api/n-api.html#node-api-version-matrix

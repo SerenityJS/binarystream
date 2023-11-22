@@ -1,5 +1,6 @@
-#![deny(clippy::all)]
-
-extern crate napi_derive;
-
 mod stream;
+
+pub mod binary {
+  pub use crate::stream::BinaryStream;
+  pub use crate::stream::Endianness;
+}

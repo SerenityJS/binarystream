@@ -13,3 +13,7 @@ stream.writeString('Hello World!')
 stream.readUint8() // 255
 stream.readString() // Hello World!
 ```
+
+## Documentation
+
+Documentation can be found (here)[https://docs.rs/binarystream]
