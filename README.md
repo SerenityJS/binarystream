@@ -16,4 +16,4 @@ stream.readString() // Hello World!
 
 ## Documentation
 
-Documentation can be found (here)[https://docs.rs/binarystream]
+Documentation can be found [here](https://docs.rs/binarystream)
