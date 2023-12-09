@@ -252,7 +252,7 @@ if (!nativeBinding) {
   throw new Error(`Failed to load native binding`)
 }
 
-const { BinaryStream, Endianness, DataType, Bool, Uint8, Uint16, Uint24, Uint32, Uint64, UShort, ULong, Byte, Int8, Int16, Int24, Int32, Int64, Short, Long, Float32, VarInt, ZigZag, VarLong, ZigZong, String16, String32, VarString, Uuid } = nativeBinding
+const { BinaryStream, Endianness, DataType, Bool, Uint8, Uint16, Uint24, Uint32, Uint64, UShort, ULong, Byte, Int8, Int16, Int24, Int32, Int64, Short, Long, Float32, Float64, VarInt, ZigZag, VarLong, ZigZong, String16, String32, VarString, Uuid } = nativeBinding
 
 module.exports.BinaryStream = BinaryStream
 module.exports.Endianness = Endianness
@@ -274,6 +274,7 @@ module.exports.Int64 = Int64
 module.exports.Short = Short
 module.exports.Long = Long
 module.exports.Float32 = Float32
+module.exports.Float64 = Float64
 module.exports.VarInt = VarInt
 module.exports.ZigZag = ZigZag
 module.exports.VarLong = VarLong

@@ -225,6 +225,18 @@ export class BinaryStream {
   */
   writeFloat32(value: number, endian?: Endianness | undefined | null): void
   /**
+  * **readFloat64**
+  *
+  * Reads a signed 64 bit ( 8 bytes ) floating point number from the stream. ( -1.7976931348623157e308 to 1.7976931348623157e308 )
+  */
+  readFloat64(endian?: Endianness | undefined | null): number
+  /**
+  * **writeFloat64**
+  *
+  * Writes a signed 64 bit ( 8 bytes ) floating point number to the stream. ( -1.7976931348623157e308 to 1.7976931348623157e308 )
+  */
+  writeFloat64(value: number, endian?: Endianness | undefined | null): void
+  /**
   * **readVarInt**
   *
   * Reads a 32 bit ( 4 bytes ) unsigned variable length integer from the stream. ( 0 to 4294967295 )
@@ -728,6 +740,25 @@ export class Float32 {
   * **write**
   *
   * Writes a signed 32-bit ( 4 bytes ) floating point number to the stream. ( -3.402823e38 to 3.402823e38 )
+  */
+  static write(stream: BinaryStream, value: number, endian?: Endianness | undefined | null): void
+}
+/**
+ * **Float64**
+ *
+ * Respresents a signed 64 bit ( 8 bytes ) floating point number. ( -1.7976931348623157e308 to 1.7976931348623157e308 )
+ */
+export class Float64 {
+  /**
+  * **read**
+  *
+  * Reads a signed 64 bit ( 8 bytes ) floating point number from the stream. ( -1.7976931348623157e308 to 1.7976931348623157e308 )
+  */
+  static read(stream: BinaryStream, endian?: Endianness | undefined | null): number
+  /**
+  * **write**
+  *
+  * Writes a signed 64 bit ( 8 bytes ) floating point number to the stream. ( -1.7976931348623157e308 to 1.7976931348623157e308 )
   */
   static write(stream: BinaryStream, value: number, endian?: Endianness | undefined | null): void
 }
