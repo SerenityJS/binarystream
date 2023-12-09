@@ -252,7 +252,33 @@ if (!nativeBinding) {
   throw new Error(`Failed to load native binding`)
 }
 
-const { Endianness, BinaryStream } = nativeBinding
+const { BinaryStream, Endianness, DataType, Bool, Uint8, Uint16, Uint24, Uint32, Uint64, UShort, ULong, Byte, Int8, Int16, Int24, Int32, Int64, Short, Long, Float32, VarInt, ZigZag, VarLong, ZigZong, String16, String32, VarString, Uuid } = nativeBinding
 
-module.exports.Endianness = Endianness
 module.exports.BinaryStream = BinaryStream
+module.exports.Endianness = Endianness
+module.exports.DataType = DataType
+module.exports.Bool = Bool
+module.exports.Uint8 = Uint8
+module.exports.Uint16 = Uint16
+module.exports.Uint24 = Uint24
+module.exports.Uint32 = Uint32
+module.exports.Uint64 = Uint64
+module.exports.UShort = UShort
+module.exports.ULong = ULong
+module.exports.Byte = Byte
+module.exports.Int8 = Int8
+module.exports.Int16 = Int16
+module.exports.Int24 = Int24
+module.exports.Int32 = Int32
+module.exports.Int64 = Int64
+module.exports.Short = Short
+module.exports.Long = Long
+module.exports.Float32 = Float32
+module.exports.VarInt = VarInt
+module.exports.ZigZag = ZigZag
+module.exports.VarLong = VarLong
+module.exports.ZigZong = ZigZong
+module.exports.String16 = String16
+module.exports.String32 = String32
+module.exports.VarString = VarString
+module.exports.Uuid = Uuid
