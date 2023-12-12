@@ -7,7 +7,7 @@ use crate::binary::{ BinaryStream, Endianness };
 /**
  * **Int64**
  * 
- * Represents an unsigned 64-bit ( 8 bytes ) integer. ( 0 to 18446744073709551615 )
+ * Represents an signed 64-bit ( 8 bytes ) integer. ( 0 to 18446744073709551615 )
 */
 pub struct Int64 {}
 
@@ -17,7 +17,7 @@ impl Int64 {
   /**
    * **read**
    * 
-   * Reads an unsigned 64-bit ( 8 bytes ) integer from the stream. ( 0 to 18446744073709551615 )
+   * Reads an signed 64-bit ( 8 bytes ) integer from the stream. ( 0 to 18446744073709551615 )
   */
   pub fn read(stream: &mut BinaryStream, endian: Option<Endianness>) -> Result<BigInt> {
     let endian = match endian {
@@ -40,7 +40,7 @@ impl Int64 {
   /**
    * **write**
    * 
-   * Writes an unsigned 64-bit ( 8 bytes ) integer to the stream. ( 0 to 18446744073709551615 )
+   * Writes an signed 64-bit ( 8 bytes ) integer to the stream. ( 0 to 18446744073709551615 )
   */
   pub fn write(stream: &mut BinaryStream, value: BigInt, endian: Option<Endianness>) {
     let endian = match endian {
