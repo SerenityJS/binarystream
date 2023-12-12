@@ -369,7 +369,7 @@ export class BinaryStream {
   */
   write(data: Array<number>): void
   /**
-  * ***writeBuffer*
+  * **writeBuffer**
   *
   * Writes a JavaScript Buffer to the stream.
   */
@@ -670,19 +670,19 @@ export class Int32 {
 /**
  * **Int64**
  *
- * Represents an unsigned 64-bit ( 8 bytes ) integer. ( 0 to 18446744073709551615 )
+ * Represents an signed 64-bit ( 8 bytes ) integer. ( 0 to 18446744073709551615 )
  */
 export class Int64 {
   /**
   * **read**
   *
-  * Reads an unsigned 64-bit ( 8 bytes ) integer from the stream. ( 0 to 18446744073709551615 )
+  * Reads an signed 64-bit ( 8 bytes ) integer from the stream. ( 0 to 18446744073709551615 )
   */
   static read(stream: BinaryStream, endian?: Endianness | undefined | null): bigint
   /**
   * **write**
   *
-  * Writes an unsigned 64-bit ( 8 bytes ) integer to the stream. ( 0 to 18446744073709551615 )
+  * Writes an signed 64-bit ( 8 bytes ) integer to the stream. ( 0 to 18446744073709551615 )
   */
   static write(stream: BinaryStream, value: bigint, endian?: Endianness | undefined | null): void
 }

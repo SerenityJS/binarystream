@@ -137,13 +137,13 @@ impl BinaryStream {
   }
 
   /**
-   * ***writeBuffer*
+   * **writeBuffer**
    * 
    * Writes a JavaScript Buffer to the stream.
   */
   #[napi]
   pub fn write_buffer(&mut self, data: Buffer) {
-    data.to_vec();
+    self.binary.extend(data.to_vec());
   }
 
   /**
