@@ -1,5 +1,6 @@
 use napi::bindgen_prelude::BigInt;
 use napi_derive::napi;
+use napi::Result;
 use crate::binary::BinaryStream;
 use crate::types::VarLong;
 
@@ -19,8 +20,12 @@ impl ZigZong {
    * 
    * Reads a 64 bit ( 8 bytes ) zigzag encoded signed variable length integer from the stream. ( -9223372036854775808 to 9223372036854775807 )
   */
-  pub fn read(stream: &mut BinaryStream) -> BigInt {
-    let value = VarLong::read(stream);
+  pub fn read(stream: &mut BinaryStream) -> Result<BigInt> {
+    let value = match VarLong::read(stream) {
+      Ok(value) => value,
+      Err(err) => return Err(err)
+    };
+
     let value = value.get_u64().1;
 
     let value = ((value >> 1) as i64) ^ (-((value & 1) as i64));
@@ -36,7 +41,7 @@ impl ZigZong {
       words: vec![value],
     };
 
-    value
+    Ok(value)
   }
 
   #[napi]

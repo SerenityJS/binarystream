@@ -1,4 +1,5 @@
 use napi_derive::napi;
+use napi::Result;
 use crate::binary::BinaryStream;
 use crate::stream::Endianness;
 use crate::types::Uint32;
@@ -11,7 +12,7 @@ impl BinaryStream {
    * 
    * Reads an unsigned 32-bit ( 4 bytes ) integer from the stream. ( 0 to 4294967295 )
   */
-  pub fn read_uint32(&mut self, endian: Option<Endianness>) -> u32 {
+  pub fn read_uint32(&mut self, endian: Option<Endianness>) -> Result<u32> {
     Uint32::read(self, endian)
   }
 

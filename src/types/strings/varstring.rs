@@ -1,4 +1,5 @@
 use napi_derive::napi;
+use napi::Result;
 use crate::binary::BinaryStream;
 use crate::types::VarInt;
 
@@ -18,12 +19,16 @@ impl VarString {
    * 
    * Reads a signed 32-bit ( 4 bytes ) utf-8 string from the stream. ( 0 to 4294967295 )
   */
-  pub fn read(stream: &mut BinaryStream) -> String {
-    let length = VarInt::read(stream) as usize;
+  pub fn read(stream: &mut BinaryStream) -> Result<String> {
+    let length = match VarInt::read(stream) {
+      Ok(value) => value as usize,
+      Err(err) => return Err(err)
+    };
+
     let value = String::from_utf8_lossy(&&stream.binary[stream.offset as usize..stream.offset as usize + length]).to_string();
     stream.offset += length as u32;
     
-    return value
+    Ok(value)
   }
 
   #[napi]

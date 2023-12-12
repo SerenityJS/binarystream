@@ -1,4 +1,5 @@
 use napi_derive::napi;
+use napi::Result;
 use crate::binary::BinaryStream;
 use crate::stream::Endianness;
 use crate::types::Int24;
@@ -11,7 +12,7 @@ impl BinaryStream {
    * 
    * Reads a signed 24-bit ( 3 bytes ) integer from the stream. ( -8388608 to 8388607 )
   */
-  pub fn read_int24(&mut self, endian: Option<Endianness>) -> i32 {
+  pub fn read_int24(&mut self, endian: Option<Endianness>) -> Result<i32> {
     Int24::read(self, endian)
   }
 

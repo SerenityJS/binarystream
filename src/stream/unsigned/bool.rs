@@ -1,4 +1,5 @@
 use napi_derive::napi;
+use napi::Result;
 use crate::binary::BinaryStream;
 use crate::types::Bool;
 
@@ -10,7 +11,7 @@ impl BinaryStream {
    * 
    * Reads a boolean ( 1 byte ) value from the stream. ( true or false )
   */
-  pub fn read_bool(&mut self) -> bool {
+  pub fn read_bool(&mut self) -> Result<bool> {
     Bool::read(self)
   }
 

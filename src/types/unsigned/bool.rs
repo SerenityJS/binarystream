@@ -1,4 +1,5 @@
 use napi_derive::napi;
+use napi::Result;
 use crate::binary::BinaryStream;
 
 #[napi]
@@ -17,10 +18,13 @@ impl Bool {
    * 
    * Reads a boolean ( 1 byte ) value from the stream. ( true or false )
   */
-  pub fn read(stream: &mut BinaryStream) -> bool {
-    let bytes = stream.read(1);
+  pub fn read(stream: &mut BinaryStream) -> Result<bool> {
+    let bytes = match stream.read(1) {
+      Ok(bytes) => bytes,
+      Err(err) => return Err(err)
+    };
     
-    return bytes[0] != 0
+    Ok(bytes[0] != 0)
   }
 
   #[napi]
@@ -34,6 +38,7 @@ impl Bool {
       true => 1,
       false => 0,
     };
+    
     stream.write(vec![value])
   }
 }

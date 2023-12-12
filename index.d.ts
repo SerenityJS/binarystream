@@ -391,7 +391,7 @@ export class BinaryStream {
   *
   * Skips a number of bytes from the stream.
   */
-  skip(length: number): number
+  skip(length: number): void
   /**
   * **cursorAtEnd**
   *

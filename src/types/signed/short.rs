@@ -1,4 +1,5 @@
 use napi_derive::napi;
+use napi::Result;
 use crate::binary::{ BinaryStream, Endianness };
 use crate::types::Int16;
 
@@ -18,7 +19,7 @@ impl Short {
    * 
    * Reads a signed 16-bit ( 2 bytes ) integer from the stream. ( -32768 to 32767 )
   */
-  pub fn read(stream: &mut BinaryStream, endian: Option<Endianness>) -> i16 {
+  pub fn read(stream: &mut BinaryStream, endian: Option<Endianness>) -> Result<i16> {
     Int16::read(stream, endian)
   }
 

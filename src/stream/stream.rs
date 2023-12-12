@@ -1,5 +1,6 @@
 use napi_derive::napi;
 use napi::bindgen_prelude::*;
+use napi::{ Result, Status::GenericFailure };
 
 #[napi]
 pub struct BinaryStream {
@@ -26,11 +27,21 @@ impl BinaryStream {
   */
   #[napi(constructor)]
   pub fn new(buffer: Option<Buffer>, offset: Option<u32>) -> Self {
-    let bin = buffer.unwrap_or(Buffer::from(vec![]));
-    let offset = offset.unwrap_or(0);
+    // Match the buffer, if none is provided, create a new buffer.
+    let bin = match buffer {
+      Some(buffer) => buffer,
+      None => Buffer::from(vec![]),
+    };
 
-    return BinaryStream {
-      binary: bin.as_ref().to_vec(),
+    // Match the offset, if none is provided, set it to 0.
+    let offset = match offset {
+      Some(offset) => offset,
+      None => 0,
+    };
+
+    // Return the new BinaryStream.
+    BinaryStream {
+      binary: bin.to_vec(),
       offset,
     }
   }
@@ -42,9 +53,14 @@ impl BinaryStream {
   */
   #[napi(factory)]
   pub fn from(binary: Vec<u8>, offset: Option<u32>) -> Self {
-    let offset = offset.unwrap_or(0);
+    // Match the offset, if none is provided, set it to 0.
+    let offset = match offset {
+        Some(offset) => offset,
+        None => 0,
+    };
 
-    return BinaryStream {
+    // Return the new BinaryStream.
+    BinaryStream {
       binary,
       offset,
     }
@@ -57,10 +73,15 @@ impl BinaryStream {
   */
   #[napi(factory)]
   pub fn from_buffer(buffer: Buffer, offset: Option<u32>) -> Self {
-    let offset = offset.unwrap_or(0);
+    // Match the offset, if none is provided, set it to 0.
+    let offset = match offset {
+        Some(offset) => offset,
+        None => 0,
+    };
 
-    return BinaryStream {
-      binary: buffer.as_ref().to_vec(),
+    // Return the new BinaryStream.
+    BinaryStream {
+      binary: buffer.to_vec(),
       offset,
     }
   }
@@ -71,12 +92,23 @@ impl BinaryStream {
    * Reads a number of bytes from the stream.
   */
   #[napi]
-  pub fn read(&mut self, length: u32) -> Vec<u8> {
+  pub fn read(&mut self, length: u32) -> Result<Vec<u8>> {
+    // Check if the length is greater than the remaining bytes.
+    if length > self.binary.len() as u32 {
+      return Err(
+        Error::new(
+          GenericFailure,
+          "Length is greater than the remaining bytes.".to_string()
+        )
+      )
+    }
+
+    // Get the start and end of the bytes.
     let start = self.offset as usize;
     let end = (self.offset + length) as usize;
     self.offset += length;
 
-    return self.binary[start..end].to_vec()
+    Ok(self.binary[start..end].to_vec())
   }
 
   /**
@@ -85,10 +117,13 @@ impl BinaryStream {
    * Reads a number of bytes from the stream and returns a JavaScript Buffer.
   */
   #[napi]
-  pub fn read_buffer(&mut self, length: u32) -> Buffer {
-    let bytes = self.read(length);
+  pub fn read_buffer(&mut self, length: u32) -> Result<Buffer> {
+    let bytes = match self.read(length) {
+      Ok(bytes) => bytes,
+      Err(err) => return Err(err)
+    };
 
-    return Buffer::from(bytes)
+    Ok(Buffer::from(bytes))
   }
 
   /**
@@ -108,7 +143,7 @@ impl BinaryStream {
   */
   #[napi]
   pub fn write_buffer(&mut self, data: Buffer) {
-    data.as_ref().to_vec();
+    data.to_vec();
   }
 
   /**
@@ -122,7 +157,7 @@ impl BinaryStream {
     let end = self.binary.len();
     self.offset = end as u32;
 
-    return self.binary[start..end].to_vec()
+    self.binary[start..end].to_vec()
   }
 
   /**
@@ -134,7 +169,7 @@ impl BinaryStream {
   pub fn read_remaining_buffer(&mut self) -> Buffer {
     let bytes = self.read_remaining();
 
-    return Buffer::from(bytes)
+    Buffer::from(bytes)
   }
 
   /**
@@ -143,10 +178,8 @@ impl BinaryStream {
    * Skips a number of bytes from the stream.
   */
   #[napi]
-  pub fn skip(&mut self, length: u32) -> u32 {
+  pub fn skip(&mut self, length: u32) {
     self.offset += length;
-
-    return self.offset
   }
 
   /**
@@ -156,7 +189,7 @@ impl BinaryStream {
   */
   #[napi]
   pub fn cursor_at_end(&self) -> bool {
-    return self.offset == self.binary.len() as u32
+    self.offset == self.binary.len() as u32
   }
 
   /**
@@ -166,7 +199,7 @@ impl BinaryStream {
   */
   #[napi]
   pub fn cursor_at_start(&self) -> bool {
-    return self.offset == 0
+    self.offset == 0
   }
 
   /**
@@ -176,6 +209,6 @@ impl BinaryStream {
   */
   #[napi]
   pub fn get_buffer(&self) -> Buffer {
-    return Buffer::from(self.binary.clone())
+    Buffer::from(self.binary.clone())
   }
 }

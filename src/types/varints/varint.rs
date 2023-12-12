@@ -1,4 +1,5 @@
 use napi_derive::napi;
+use napi::{ Result, Error, Status::GenericFailure };
 use crate::binary::BinaryStream;
 use crate::types::Uint8;
 
@@ -18,24 +19,31 @@ impl VarInt {
    * 
    * Reads a 32 bit ( 4 bytes ) unsigned variable length integer from the stream. ( 0 to 4294967295 )
   */
-  pub fn read(stream: &mut BinaryStream) -> u32 {
+  pub fn read(stream: &mut BinaryStream) -> Result<u32> {
     let mut value = 0;
     let mut size = 0;
     loop {
-      let byte = Uint8::read(stream);
+      let byte = match Uint8::read(stream) {
+        Ok(byte) => byte,
+        Err(err) => return Err(err)
+      };
+      
       value |= (byte as u32 & 0x7F) << (size * 7);
       size += 1;
       if size > 5 {
-        println!("VarInt is too big");
-
-        return 0;
+        return Err(
+          Error::new(
+            GenericFailure,
+            "VarInt is too big"
+          )
+        )
       }
       if (byte & 0x80) != 0x80 {
         break;
       }
     }
 
-    return value;
+    Ok(value)
   }
 
   #[napi]

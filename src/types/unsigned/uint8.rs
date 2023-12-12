@@ -1,4 +1,5 @@
 use napi_derive::napi;
+use napi::Result;
 use crate::binary::BinaryStream;
 
 #[napi]
@@ -17,10 +18,13 @@ impl Uint8 {
    * 
    * Reads an unsigned 8-bit ( 1 byte ) integer from the stream. ( 0 to 255 )
   */
-  pub fn read(stream: &mut BinaryStream) -> u8 {
-    let bytes = stream.read(1);
+  pub fn read(stream: &mut BinaryStream) -> Result<u8> {
+    let bytes = match stream.read(1) {
+      Ok(bytes) => bytes,
+      Err(err) => return Err(err)
+    };
     
-    return bytes[0]
+    Ok(bytes[0])
   }
 
   #[napi]

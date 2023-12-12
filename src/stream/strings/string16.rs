@@ -1,4 +1,5 @@
 use napi_derive::napi;
+use napi::Result;
 use crate::binary::BinaryStream;
 use crate::stream::Endianness;
 use crate::types::String16;
@@ -11,7 +12,7 @@ impl BinaryStream {
    * 
    * Reads an unsigned 16-bit ( 2 bytes ) utf-8 string from the stream. ( 0 to 65535 )
   */
-  pub fn read_string16(&mut self, endian: Option<Endianness>) -> String {
+  pub fn read_string16(&mut self, endian: Option<Endianness>) -> Result<String> {
     String16::read(self, endian)
   }
 

@@ -1,5 +1,6 @@
 use napi::bindgen_prelude::BigInt;
 use napi_derive::napi;
+use napi::Result;
 use crate::binary::BinaryStream;
 use crate::stream::Endianness;
 use crate::types::ULong;
@@ -12,7 +13,7 @@ impl BinaryStream {
    * 
    * Reads an usigned 64-bit ( 8 bytes ) integer from the stream. ( 0 to 18446744073709551615 )
   */
-  pub fn read_u_long(&mut self, endian: Option<Endianness>) -> BigInt {
+  pub fn read_u_long(&mut self, endian: Option<Endianness>) -> Result<BigInt> {
     ULong::read(self, endian)
   }
 

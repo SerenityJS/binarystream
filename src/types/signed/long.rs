@@ -1,5 +1,6 @@
 use napi::bindgen_prelude::BigInt;
 use napi_derive::napi;
+use napi::Result;
 use crate::binary::{ BinaryStream, Endianness };
 use crate::types::Int64;
 
@@ -19,7 +20,7 @@ impl Long {
    * 
    * Reads a signed 64-bit ( 8 bytes ) integer from the stream. ( -9223372036854775808 to 9223372036854775807 )
   */
-  pub fn read(stream: &mut BinaryStream, endian: Option<Endianness>) -> BigInt {
+  pub fn read(stream: &mut BinaryStream, endian: Option<Endianness>) -> Result<BigInt> {
     Int64::read(stream, endian)
   }
 

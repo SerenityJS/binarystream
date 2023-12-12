@@ -1,4 +1,5 @@
 use napi_derive::napi;
+use napi::Result;
 use crate::binary::BinaryStream;
 
 #[napi]
@@ -17,14 +18,18 @@ impl Uuid {
    * 
    * Reads a signed 128-bit ( 16 bytes ) uuid string from the stream.
   */
-  pub fn read(stream: &mut BinaryStream) -> String {
-    let bytes = stream.read(16);
+  pub fn read(stream: &mut BinaryStream) -> Result<String> {
+    let bytes = match stream.read(16) {
+      Ok(bytes) => bytes,
+      Err(err) => return Err(err)
+    };
+
     let mut uuid = String::new();
     for byte in bytes {
       uuid.push_str(&format!("{:02X}", byte));
     }
 
-    return uuid
+    Ok(uuid)
   }
 
   #[napi]

@@ -1,4 +1,5 @@
 use napi_derive::napi;
+use napi::Result;
 use crate::binary::BinaryStream;
 use crate::types::Int8;
 
@@ -10,7 +11,7 @@ impl BinaryStream {
    * 
    * Reads a signed 8-bit ( 1 byte ) integer from the stream. ( -128 to 127 )
   */
-  pub fn read_int8(&mut self) -> i8 {
+  pub fn read_int8(&mut self) -> Result<i8> {
     Int8::read(self)
   }
 

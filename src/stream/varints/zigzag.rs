@@ -1,4 +1,5 @@
 use napi_derive::napi;
+use napi::Result;
 use crate::binary::BinaryStream;
 use crate::types::ZigZag;
 
@@ -10,7 +11,7 @@ impl BinaryStream {
    * 
    * Reads a 32 bit ( 4 bytes ) zigzag encoded signed variable length integer from the stream. ( -2147483648 to 2147483647 )
   */
-  pub fn read_zig_zag(&mut self) -> i32 {
+  pub fn read_zig_zag(&mut self) -> Result<i32> {
     ZigZag::read(self)
   }
 
