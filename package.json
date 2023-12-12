@@ -1,6 +1,6 @@
 {
   "name": "@serenityjs/binarystream",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "main": "index.js",
   "description": "Binarystream is a simple package designed to simplify streaming of binary data in Javascript, while being written in Rust.",
   "types": "index.d.ts",
