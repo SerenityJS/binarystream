@@ -1,7 +1,7 @@
 [package]
 edition = "2021"
 name = "binarystream"
-version = "1.2.1"
+version = "1.2.2"
 description = "Binarystream is a simple package designed to simplify streaming of binary data in Javascript, while being written in Rust."
 license-file = "LICENSE"
 readme = "README.md"
