@@ -412,15 +412,6 @@ export class BinaryStream {
   getBuffer(): Buffer
 }
 /**
- * **DataType**
- *
- * Represents an abstract data type within JavaScript.
- */
-export class DataType {
-  static read(stream: BinaryStream): any
-  static write(stream: BinaryStream, value: any): void
-}
-/**
  * **Bool**
  *
  * Represents a boolean value. ( true or false )
