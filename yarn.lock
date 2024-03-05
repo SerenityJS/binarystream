@@ -70,23 +70,23 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@serenityjs/binarystream-darwin-x64@npm:1.3.0":
-  version: 1.3.0
-  resolution: "@serenityjs/binarystream-darwin-x64@npm:1.3.0"
+"@serenityjs/binarystream-darwin-x64@npm:1.3.1":
+  version: 1.3.1
+  resolution: "@serenityjs/binarystream-darwin-x64@npm:1.3.1"
   conditions: os=darwin & cpu=x64
   languageName: node
   linkType: hard
 
-"@serenityjs/binarystream-linux-x64-gnu@npm:1.3.0":
-  version: 1.3.0
-  resolution: "@serenityjs/binarystream-linux-x64-gnu@npm:1.3.0"
+"@serenityjs/binarystream-linux-x64-gnu@npm:1.3.1":
+  version: 1.3.1
+  resolution: "@serenityjs/binarystream-linux-x64-gnu@npm:1.3.1"
   conditions: os=linux & cpu=x64 & libc=glibc
   languageName: node
   linkType: hard
 
-"@serenityjs/binarystream-win32-x64-msvc@npm:1.3.0":
-  version: 1.3.0
-  resolution: "@serenityjs/binarystream-win32-x64-msvc@npm:1.3.0"
+"@serenityjs/binarystream-win32-x64-msvc@npm:1.3.1":
+  version: 1.3.1
+  resolution: "@serenityjs/binarystream-win32-x64-msvc@npm:1.3.1"
   conditions: os=win32 & cpu=x64
   languageName: node
   linkType: hard
@@ -96,9 +96,9 @@ __metadata:
   resolution: "@serenityjs/binarystream@workspace:."
   dependencies:
     "@napi-rs/cli": "npm:^2.18.0"
-    "@serenityjs/binarystream-darwin-x64": "npm:1.3.0"
-    "@serenityjs/binarystream-linux-x64-gnu": "npm:1.3.0"
-    "@serenityjs/binarystream-win32-x64-msvc": "npm:1.3.0"
+    "@serenityjs/binarystream-darwin-x64": "npm:1.3.1"
+    "@serenityjs/binarystream-linux-x64-gnu": "npm:1.3.1"
+    "@serenityjs/binarystream-win32-x64-msvc": "npm:1.3.1"
     ava: "npm:^6.0.1"
   dependenciesMeta:
     "@serenityjs/binarystream-darwin-x64":
