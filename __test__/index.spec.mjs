@@ -1,7 +1,5 @@
-import test from 'ava'
+import { BinaryStream } from '../index.js'
 
-import { sum } from '../index.js'
+const stream = new BinaryStream()
 
-test('sum from native', (t) => {
-  t.is(sum(1, 2), 3)
-})
+stream.writeString16('Hello, World!')
