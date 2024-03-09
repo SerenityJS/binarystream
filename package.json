@@ -32,5 +32,9 @@
     "@serenityjs/binarystream-darwin-x64": "1.3.4",
     "@serenityjs/binarystream-linux-x64-gnu": "1.3.4",
     "@serenityjs/binarystream-win32-x64-msvc": "1.3.4"
+  },
+  "repository": {
+    "url": "https://github.com/SerenityJS/binarystream.git",
+    "type": "git"
   }
 }
