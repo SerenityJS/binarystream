@@ -1,6 +1,6 @@
 [package]
 edition = "2021"
-name = "serenityjs_binarystream"
+name = "serenityjs_binaryutils"
 version = "0.0.0"
 
 [lib]
