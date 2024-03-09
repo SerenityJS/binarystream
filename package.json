@@ -29,9 +29,9 @@
   },
   "packageManager": "yarn@4.1.1",
   "optionalDependencies": {
-    "@serenityjs/binarystream-darwin-x64": "1.3.4",
-    "@serenityjs/binarystream-linux-x64-gnu": "1.3.4",
-    "@serenityjs/binarystream-win32-x64-msvc": "1.3.4"
+    "@serenityjs/binaryutils-darwin-x64": "1.0.1",
+    "@serenityjs/binaryutils-linux-x64-gnu": "1.0.1",
+    "@serenityjs/binaryutils-win32-x64-msvc": "1.0.1"
   },
   "repository": "https://github.com/SerenityJS/binaryutils"
 }
