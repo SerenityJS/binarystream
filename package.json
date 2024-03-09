@@ -1,6 +1,6 @@
 {
   "name": "@serenityjs/binaryutils",
-  "version": "1.3.6",
+  "version": "1.0.0",
   "main": "index.js",
   "types": "index.d.ts",
   "napi": {

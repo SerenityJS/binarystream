@@ -1,6 +1,6 @@
 {
   "name": "@serenityjs/binaryutils-linux-x64-gnu",
-  "version": "1.3.6",
+  "version": "1.0.0",
   "os": [
     "linux"
   ],
