@@ -1,6 +1,6 @@
 {
   "name": "@serenityjs/binarystream-win32-x64-msvc",
-  "version": "1.3.4",
+  "version": "1.3.5",
   "os": [
     "win32"
   ],
