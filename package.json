@@ -1,10 +1,10 @@
 {
-  "name": "@serenityjs/binarystream",
+  "name": "@serenityjs/binaryutils",
   "version": "1.3.6",
   "main": "index.js",
   "types": "index.d.ts",
   "napi": {
-    "name": "binarystream",
+    "name": "binaryutils",
     "triples": {}
   },
   "license": "MIT",
@@ -33,8 +33,5 @@
     "@serenityjs/binarystream-linux-x64-gnu": "1.3.4",
     "@serenityjs/binarystream-win32-x64-msvc": "1.3.4"
   },
-  "repository": {
-    "url": "https://github.com/SerenityJS/binarystream.git",
-    "type": "git"
-  }
+  "repository": "https://github.com/SerenityJS/binaryutils"
 }
