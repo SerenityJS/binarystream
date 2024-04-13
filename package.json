@@ -2,6 +2,7 @@
   "name": "@serenityjs/binarystream",
   "version": "2.5.1",
   "type": "commonjs",
+  "repository": "https://github.com/SerenityJS/binarystream",
   "main": "index.js",
   "types": "index.d.ts",
   "napi": {
