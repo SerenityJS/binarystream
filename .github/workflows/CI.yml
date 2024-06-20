@@ -93,13 +93,6 @@ jobs:
         run: ${{ matrix.settings.build }}
         if: ${{ !matrix.settings.docker }}
         shell: bash
-      - name: Rename If Darwin
-        run: |
-          if [[ ${{ matrix.settings.target }} == "x86_64-apple-darwin" ]]; then
-            mv binarystream.darwin-arm64.node binarystream.darwin-x64.node
-          fi
-        shell: bash
-
       - name: Upload artifact
         uses: actions/upload-artifact@v4
         with:
@@ -190,6 +183,8 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           path: artifacts
+      - name: Rename Darwin Artifacts
+        run: yarn rename
       - name: Move artifacts
         run: yarn artifacts
       - name: List packages
