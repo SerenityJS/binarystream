@@ -44,7 +44,13 @@ impl Uuid {
       uuid.push_str(&format!("{:02X}", byte));
     }
 
-    Ok(uuid)
+    // Format the uuid string to match the standard format
+    uuid.insert(8, '-');
+    uuid.insert(13, '-');
+    uuid.insert(18, '-');
+    uuid.insert(23, '-');
+
+    Ok(uuid.to_lowercase())
   }
 
   #[napi]
@@ -73,6 +79,7 @@ impl Uuid {
     }
 
     bytes.reverse();
+
     stream.write(bytes)
   }
 }
