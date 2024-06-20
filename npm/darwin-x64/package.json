@@ -8,9 +8,9 @@
   "cpu": [
     "x64"
   ],
-  "main": "binarystream.darwin-x64.node",
+  "main": "binarystream.darwin-arm64.node",
   "files": [
-    "binarystream.darwin-x64.node"
+    "binarystream.darwin-arm64.node"
   ],
   "license": "MIT",
   "engines": {
