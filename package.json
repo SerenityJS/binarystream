@@ -7,7 +7,12 @@
   "types": "index.d.ts",
   "napi": {
     "name": "binarystream",
-    "triples": {}
+    "triples": {
+      "defaults": true,
+      "additional": [
+        "aarch64-darwin"
+      ]
+    }
   },
   "license": "MIT",
   "devDependencies": {
@@ -27,7 +32,6 @@
     "prepublishOnly": "napi prepublish -t npm",
     "test": "ava",
     "universal": "napi universal",
-    "version": "napi version",
-    "rename": "mv ./artifacts/bindings-x86_64-apple-darwin/binarystream.darwin-arm64.node ./artifacts/bindings-x86_64-apple-darwin/binarystream.darwin-x64.node"
+    "version": "napi version"
   }
 }

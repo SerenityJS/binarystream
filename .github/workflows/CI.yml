@@ -10,6 +10,7 @@ permissions:
   push:
     branches:
       - main
+      - dev/arm64
     tags-ignore:
       - '**'
     paths-ignore:
@@ -27,6 +28,9 @@ jobs:
         settings:
           - host: macos-latest
             target: x86_64-apple-darwin
+            build: yarn build
+          - host: macos-latest
+            target: aarch64-apple-darwin
             build: yarn build
           - host: windows-latest
             build: yarn build
@@ -109,6 +113,8 @@ jobs:
         settings:
           - host: macos-latest
             target: x86_64-apple-darwin
+          - host: macos-latest
+            target: aarch64-apple-darwin
           - host: windows-latest
             target: x86_64-pc-windows-msvc
         node:
@@ -184,7 +190,10 @@ jobs:
         with:
           path: artifacts
       - name: Rename Darwin Artifacts
-        run: yarn rename
+        run: |
+          mv ./artifacts/bindings-x86_64-apple-darwin/binarystream.darwin-arm64.node ./artifacts/bindings-x86_64-apple-darwin/binarystream.darwin-x64.node
+      - name: List artifacts
+        run: ls -R ./artifacts
       - name: Move artifacts
         run: yarn artifacts
       - name: List packages
