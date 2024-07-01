@@ -51,12 +51,16 @@ impl ZigZong {
    * Writes a 64 bit ( 8 bytes ) zigzag encoded signed variable length integer to the stream. ( -9223372036854775808 to 9223372036854775807 )
   */
   pub fn write(stream: &mut BinaryStream, value: BigInt) {
-    let value = value.get_i64().0;
-    let value = ((value << 1) ^ (value >> 63)) as u64;
-    let value = napi::bindgen_prelude::BigInt {
-      sign_bit: false,
-      words: vec![value],
+    let value_ = value.get_i64().0;
+    let signed = value.sign_bit;
+
+    let value = match signed {
+      true => -value_,
+      false => value_
     };
-    VarLong::write(stream, value);
+
+    let value = (value << 1) ^ (value >> 63);
+
+    VarLong::write(stream, BigInt::from(value));
   }
 }
