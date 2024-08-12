@@ -2,7 +2,7 @@
 edition = "2021"
 name = "binarystream"
 version = "2.6.6"
-desciption = "A simple binary stream for Node.js"
+description = "A simple binary stream for Node.js"
 license = "MIT"
 
 
