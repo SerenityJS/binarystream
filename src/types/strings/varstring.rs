@@ -4,6 +4,7 @@ use crate::binary::BinaryStream;
 use crate::types::VarInt;
 
 #[napi]
+#[derive(Clone)]
 /**
  * **String**
  * 

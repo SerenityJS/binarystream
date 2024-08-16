@@ -4,6 +4,7 @@ use napi::bindgen_prelude::BigInt;
 use crate::binary::{ BinaryStream, Endianness };
 
 #[napi]
+#[derive(Clone)]
 /**
  * **Uint64**
  * 

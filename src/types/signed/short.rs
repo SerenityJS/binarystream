@@ -4,6 +4,7 @@ use crate::binary::{ BinaryStream, Endianness };
 use crate::types::Int16;
 
 #[napi]
+#[derive(Clone)]
 /**
  * **Short**
  * 

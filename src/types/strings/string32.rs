@@ -5,6 +5,7 @@ use crate::stream::Endianness;
 use crate::types::Int32;
 
 #[napi]
+#[derive(Clone)]
 /**
  * **String**
  * 

@@ -3,6 +3,7 @@ use napi::Result;
 use crate::binary::{ BinaryStream, Endianness };
 
 #[napi]
+#[derive(Clone)]
 /**
  * **Uint24**
  * 

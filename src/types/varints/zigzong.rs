@@ -5,6 +5,7 @@ use crate::binary::BinaryStream;
 use crate::types::VarLong;
 
 #[napi]
+#[derive(Clone)]
 /**
  * **ZigZong**
  * 

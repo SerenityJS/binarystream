@@ -5,6 +5,7 @@ use crate::binary::BinaryStream;
 use crate::types::Uint8;
 
 #[napi]
+#[derive(Clone)]
 /**
  * **VarLong**
  * 

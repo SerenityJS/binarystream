@@ -3,6 +3,7 @@ use napi::Result;
 use crate::binary::BinaryStream;
 
 #[napi]
+#[derive(Clone)]
 /**
  * **Uint8**
  * 
