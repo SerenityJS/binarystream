@@ -1,4 +1,4 @@
-use napi::bindgen_prelude::BigInt;
+use napi::bindgen_prelude::{BigInt, FromNapiValue};
 use napi_derive::napi;
 use napi::{ Result, Error, Status::GenericFailure };
 use crate::binary::BinaryStream;
@@ -70,5 +70,12 @@ impl VarLong {
         break;
       }
     }
+  }
+}
+
+
+impl FromNapiValue for VarLong {
+  unsafe fn from_napi_value(_: napi::sys::napi_env, _: napi::sys::napi_value) -> Result<Self> {
+    Ok(VarLong {})
   }
 }

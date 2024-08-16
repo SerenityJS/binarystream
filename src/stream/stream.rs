@@ -223,3 +223,20 @@ impl BinaryStream {
     Buffer::from(self.binary.clone())
   }
 }
+
+impl FromNapiValue for BinaryStream {
+  unsafe fn from_napi_value(env: sys::napi_env, napi_val: sys::napi_value) -> Result<Self> {
+    let offset = 0;
+
+    // Get the binary from the JavaScript Buffer.
+    let buffer = Buffer::from_napi_value(env, napi_val)?;
+    let binary = buffer.to_vec();
+
+    // Return the new BinaryStream.
+    Ok(BinaryStream {
+      binary,
+      offset,
+    })
+  }
+    
+}

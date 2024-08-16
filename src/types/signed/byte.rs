@@ -1,5 +1,5 @@
 use napi_derive::napi;
-use napi::Result;
+use napi::{bindgen_prelude::FromNapiValue, Result};
 use crate::binary::BinaryStream;
 
 #[napi]
@@ -36,5 +36,11 @@ impl Byte {
   */
   pub fn write(stream: &mut BinaryStream, value: i8) {
     stream.write(vec![value as u8])
+  }
+}
+
+impl FromNapiValue for Byte {
+  unsafe fn from_napi_value(_: napi::sys::napi_env, _: napi::sys::napi_value) -> Result<Self> {
+    Ok(Byte {})
   }
 }

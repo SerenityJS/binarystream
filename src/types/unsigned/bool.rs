@@ -1,5 +1,5 @@
 use napi_derive::napi;
-use napi::Result;
+use napi::{bindgen_prelude::FromNapiValue, Result};
 use crate::binary::BinaryStream;
 
 #[napi]
@@ -41,5 +41,11 @@ impl Bool {
     };
     
     stream.write(vec![value])
+  }
+}
+
+impl FromNapiValue for Bool {
+  unsafe fn from_napi_value(_: napi::sys::napi_env, _: napi::sys::napi_value) -> Result<Self> {
+    Ok(Bool {})
   }
 }

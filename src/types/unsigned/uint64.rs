@@ -1,5 +1,5 @@
 use napi_derive::napi;
-use napi::Result;
+use napi::{bindgen_prelude::FromNapiValue, Result};
 use napi::bindgen_prelude::BigInt;
 use crate::binary::{ BinaryStream, Endianness };
 
@@ -55,5 +55,11 @@ impl Uint64 {
       Endianness::Big => stream.write(value.to_be_bytes().to_vec()),
       Endianness::Little => stream.write(value.to_le_bytes().to_vec()),
     }
+  }
+}
+
+impl FromNapiValue for Uint64 {
+  unsafe fn from_napi_value(_: napi::sys::napi_env, _: napi::sys::napi_value) -> Result<Self> {
+    Ok(Uint64 {})
   }
 }

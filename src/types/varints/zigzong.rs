@@ -1,4 +1,4 @@
-use napi::bindgen_prelude::BigInt;
+use napi::bindgen_prelude::{BigInt, FromNapiValue};
 use napi_derive::napi;
 use napi::Result;
 use crate::binary::BinaryStream;
@@ -63,5 +63,11 @@ impl ZigZong {
     let value = (value << 1) ^ (value >> 63);
 
     VarLong::write(stream, BigInt::from(value));
+  }
+}
+
+impl FromNapiValue for ZigZong {
+  unsafe fn from_napi_value(_: napi::sys::napi_env, _: napi::sys::napi_value) -> Result<Self> {
+    Ok(ZigZong {})
   }
 }

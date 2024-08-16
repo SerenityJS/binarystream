@@ -1,6 +1,6 @@
 use napi_derive::napi;
 use napi::Result;
-use napi::bindgen_prelude::BigInt;
+use napi::bindgen_prelude::{BigInt, FromNapiValue};
 use crate::binary::{ BinaryStream, Endianness };
 use crate::types::Uint64;
 
@@ -33,5 +33,11 @@ impl ULong {
   */
   pub fn write(stream: &mut BinaryStream, value: BigInt, endian: Option<Endianness>) {
     Uint64::write(stream, value, endian);
+  }
+}
+
+impl FromNapiValue for ULong {
+  unsafe fn from_napi_value(_: napi::sys::napi_env, _: napi::sys::napi_value) -> Result<Self> {
+    Ok(ULong {})
   }
 }

@@ -1,3 +1,4 @@
+use napi::bindgen_prelude::FromNapiValue;
 use napi_derive::napi;
 use napi::{ Result, Error, Status::GenericFailure };
 use crate::binary::BinaryStream;
@@ -66,5 +67,11 @@ impl VarInt {
         break;
       }
     }
+  }
+}
+
+impl FromNapiValue for VarInt {
+  unsafe fn from_napi_value(_: napi::sys::napi_env, _: napi::sys::napi_value) -> Result<Self> {
+    Ok(VarInt {})
   }
 }

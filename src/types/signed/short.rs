@@ -1,3 +1,4 @@
+use napi::bindgen_prelude::FromNapiValue;
 use napi_derive::napi;
 use napi::Result;
 use crate::binary::{ BinaryStream, Endianness };
@@ -32,5 +33,11 @@ impl Short {
   */
   pub fn write(stream: &mut BinaryStream, value: i16, endian: Option<Endianness>) {
     Int16::write(stream, value, endian);
+  }
+}
+
+impl FromNapiValue for Short {
+  unsafe fn from_napi_value(_: napi::sys::napi_env, _: napi::sys::napi_value) -> Result<Self> {
+    Ok(Short {})
   }
 }

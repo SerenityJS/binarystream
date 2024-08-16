@@ -1,3 +1,4 @@
+use napi::bindgen_prelude::FromNapiValue;
 use napi_derive::napi;
 use napi::Result;
 use crate::binary::BinaryStream;
@@ -43,5 +44,11 @@ impl String32 {
     let len = value.len() as i32;
     Int32::write(stream, len, endian);
     stream.write(value.as_bytes().to_vec())
+  }
+}
+
+impl FromNapiValue for String32 {
+  unsafe fn from_napi_value(_: napi::sys::napi_env, _: napi::sys::napi_value) -> Result<Self> {
+    Ok(String32 {})
   }
 }
