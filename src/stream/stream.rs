@@ -3,6 +3,7 @@ use napi::bindgen_prelude::*;
 use napi::{ Result, Status::GenericFailure };
 
 #[napi]
+#[derive(Clone)]
 pub struct BinaryStream {
   /**
    * **binary**
