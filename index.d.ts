@@ -410,6 +410,24 @@ export class BinaryStream {
   * Gets the binary as a JavaScript Buffer.
   */
   getBuffer(): Buffer
+  /**
+  * **peek**
+  *
+  * Peeks at the next byte in the stream.
+  */
+  peek(): number
+  /**
+  * **get**
+  *
+  * Gets a byte at a specific index in the stream.
+  */
+  get(index: number): number
+  /**
+  * **set**
+  *
+  * Sets a byte at a specific index in the stream.
+  */
+  set(index: number, value: number): void
 }
 /**
  * **Bool**

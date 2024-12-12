@@ -222,6 +222,37 @@ impl BinaryStream {
   pub fn get_buffer(&self) -> Buffer {
     Buffer::from(self.binary.clone())
   }
+
+  /**
+   * **peek**
+   * 
+   * Peeks at the next byte in the stream.
+  */
+  #[napi]
+  pub fn peek(&self) -> u8 {
+    self.binary[self.offset as usize]
+  }
+
+
+  /**
+   * **get**
+   * 
+   * Gets a byte at a specific index in the stream.
+  */
+  #[napi]
+  pub fn get(&self, index: u32) -> u8 {
+    self.binary[index as usize]
+  }
+
+  /**
+   * **set**
+   * 
+   * Sets a byte at a specific index in the stream.
+  */
+  #[napi]
+  pub fn set(&mut self, index: u32, value: u8) {
+    self.binary[index as usize] = value;
+  }
 }
 
 impl FromNapiValue for BinaryStream {
