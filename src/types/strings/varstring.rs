@@ -23,12 +23,16 @@ impl VarString {
   */
   pub fn read(stream: &mut BinaryStream) -> Result<String> {
     let length = match VarInt::read(stream) {
-      Ok(value) => value as usize,
+      Ok(value) => value,
       Err(err) => return Err(err)
     };
 
-    let value = String::from_utf8_lossy(&&stream.binary[stream.offset as usize..stream.offset as usize + length]).to_string();
-    stream.offset += length as u32;
+    let buffer = match stream.read(length) {
+      Ok(bytes) => bytes,
+      Err(err) => return Err(err)
+    };
+
+    let value = String::from_utf8_lossy(&buffer).to_string();
     
     Ok(value)
   }
