@@ -23,13 +23,17 @@ impl String16 {
    * Reads an unsigned 16-bit ( 2 bytes ) utf-8 string from the stream. ( 0 to 65535 )
   */
   pub fn read(stream: &mut BinaryStream, endian: Option<Endianness>) -> Result<String> {
-    let len = match Uint16::read(stream, endian) {
-      Ok(value) => value,
+    let length = match Uint16::read(stream, endian) {
+      Ok(value) => value as u32,
       Err(err) => return Err(err)
     };
 
-    let value = String::from_utf8_lossy(&&stream.binary[stream.offset as usize..stream.offset as usize + len as usize]).to_string();
-    stream.offset += len as u32;
+    let buffer = match stream.read(length) {
+      Ok(bytes) => bytes,
+      Err(err) => return Err(err)
+    };
+
+    let value = String::from_utf8_lossy(&buffer).to_string();
 
     Ok(value)
   }

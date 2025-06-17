@@ -3,7 +3,7 @@ use napi_derive::napi;
 use napi::Result;
 use crate::binary::BinaryStream;
 use crate::stream::Endianness;
-use crate::types::Int32;
+use crate::types::Uint32;
 
 #[napi]
 #[derive(Clone)]
@@ -23,13 +23,17 @@ impl String32 {
    * Reads a signed 32-bit ( 4 bytes ) utf-8 string from the stream. ( 0 to 4294967295 )
   */
   pub fn read(stream: &mut BinaryStream, endian: Option<Endianness>) -> Result<String> {
-    let length = match Int32::read(stream, endian) {
-      Ok(value) => value as usize,
+    let length = match Uint32::read(stream, endian) {
+      Ok(value) => value,
       Err(err) => return Err(err)
     };
 
-    let value = String::from_utf8_lossy(&&stream.binary[stream.offset as usize..stream.offset as usize + length]).to_string();
-    stream.offset += length as u32;
+    let buffer = match stream.read(length) {
+      Ok(bytes) => bytes,
+      Err(err) => return Err(err)
+    };
+
+    let value = String::from_utf8_lossy(&buffer).to_string();
 
     Ok(value)
   }
@@ -41,8 +45,8 @@ impl String32 {
    * Writes a signed 32-bit ( 4 bytes ) utf-8 string to the stream. ( 0 to 4294967295 )
   */
   pub fn write(stream: &mut BinaryStream, value: String, endian: Option<Endianness>) {
-    let len = value.len() as i32;
-    Int32::write(stream, len, endian);
+    let len = value.len() as u32;
+    Uint32::write(stream, len, endian);
     stream.write(value.as_bytes().to_vec())
   }
 }
