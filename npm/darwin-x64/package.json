@@ -1,7 +1,7 @@
 {
   "name": "@serenityjs/binarystream-darwin-x64",
   "repository": "https://github.com/SerenityJS/binarystream",
-  "version": "2.7.1",
+  "version": "2.7.2",
   "os": [
     "darwin"
   ],
