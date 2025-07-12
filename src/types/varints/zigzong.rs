@@ -2,7 +2,7 @@ use napi::bindgen_prelude::{BigInt, FromNapiValue};
 use napi_derive::napi;
 use napi::Result;
 use crate::binary::BinaryStream;
-use crate::types::VarLong;
+use crate::types::{Int8, VarLong};
 
 #[napi]
 #[derive(Clone)]
@@ -52,17 +52,21 @@ impl ZigZong {
    * Writes a 64 bit ( 8 bytes ) zigzag encoded signed variable length integer to the stream. ( -9223372036854775808 to 9223372036854775807 )
   */
   pub fn write(stream: &mut BinaryStream, value: BigInt) {
-    let value_ = value.get_i64().0;
-    let signed = value.sign_bit;
+    let mut value = value.get_i64().0;
 
-    let value = match signed {
-      true => -value_,
-      false => value_
-    };
+    value = (value << 1) ^ (value >> 63);
 
-    let value = (value << 1) ^ (value >> 63);
-
-    VarLong::write(stream, BigInt::from(value));
+    loop {
+      let mut byte = (value & 0b01111111) as i8;
+      value >>= 7;
+      if value != 0 {
+        byte |= 0b10000000u8 as i8;
+      }
+      Int8::write(stream, byte);
+      if value == 0 {
+        break;
+      }
+    }
   }
 }
 
