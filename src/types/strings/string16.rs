@@ -23,17 +23,27 @@ impl String16 {
    * Reads an unsigned 16-bit ( 2 bytes ) utf-8 string from the stream. ( 0 to 65535 )
   */
   pub fn read(stream: &mut BinaryStream, endian: Option<Endianness>) -> Result<String> {
+    // Read the length of the string.
     let length = match Uint16::read(stream, endian) {
-      Ok(value) => value as u32,
+      Ok(value) => value,
       Err(err) => return Err(err)
     };
 
-    let buffer = match stream.read(length) {
-      Ok(bytes) => bytes,
-      Err(err) => return Err(err)
-    };
+    // Length validation
+    let start = stream.offset as usize;
+    let end = start + length as usize;
+    if end > stream.binary.len() {
+      return Err(
+        napi::Error::new(
+          napi::Status::GenericFailure,
+          "String length exceeds available bytes in the stream.".to_string()
+        )
+      );
+    }
 
-    let value = String::from_utf8_lossy(&buffer).to_string();
+    // Read the string from the binary stream.
+    let value = String::from_utf8_lossy(&stream.binary[start..end]).to_string();
+    stream.offset += length as u32;
 
     Ok(value)
   }
