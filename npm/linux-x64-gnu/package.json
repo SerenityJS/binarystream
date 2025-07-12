@@ -1,7 +1,7 @@
 {
   "name": "@serenityjs/binarystream-linux-x64-gnu",
   "repository": "https://github.com/SerenityJS/binarystream",
-  "version": "2.7.2",
+  "version": "2.7.3",
   "os": [
     "linux"
   ],
