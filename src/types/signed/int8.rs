@@ -1,46 +1,40 @@
+use napi::Result;
 use napi_derive::napi;
-use napi::{bindgen_prelude::FromNapiValue, Result};
-use crate::binary::BinaryStream;
+
+use crate::stream::BinaryStream;
 
 #[napi]
-#[derive(Clone)]
-/**
- * **Int8**
- * 
- * Represents a signed 8-bit ( 1 byte ) integer. ( -128 to 127 )
-*/
-pub struct Int8 {}
+pub struct Int8();
 
 #[napi]
 impl Int8 {
-  #[napi]
   /**
-   * **read**
-   * 
-   * Reads a signed 8-bit ( 1 byte ) integer from the stream. ( -128 to 127 )
+   * Read a unsigned 8-bit integer (i8) from the BinaryStream.
   */
+  #[napi]
   pub fn read(stream: &mut BinaryStream) -> Result<i8> {
+    // Read a single byte from the stream
     let bytes = match stream.read(1) {
       Ok(bytes) => bytes,
-      Err(err) => return Err(err)
+      Err(err) => return Err(err),
     };
-    
-    Ok(bytes[0] as i8)
+
+    // Return the first byte as i8
+    Ok(i8::from_be_bytes([bytes[0]]))
   }
 
-  #[napi]
   /**
-   * **write**
-   * 
-   * Writes a signed 8-bit ( 1 byte ) integer to the stream. ( -128 to 127 )
+   * Write a unsigned 8-bit integer (i8) to the BinaryStream.
   */
-  pub fn write(stream: &mut BinaryStream, value: i8) {
-    stream.write(vec![value as u8])
-  }
-}
+  #[napi]
+  pub fn write(stream: &mut BinaryStream, value: i8) -> Result<()> {
+    // Convert the i8 value to bytes
+    let bytes = value.to_be_bytes();
 
-impl FromNapiValue for Int8 {
-  unsafe fn from_napi_value(_: napi::sys::napi_env, _: napi::sys::napi_value) -> Result<Self> {
-    Ok(Int8 {})
+    // Write a single byte to the stream
+    match stream.write(&bytes) {
+      Ok(_) => Ok(()),
+      Err(err) => Err(err),
+    }
   }
 }

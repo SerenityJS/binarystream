@@ -5,15 +5,15 @@ use crate::stream::BinaryStream;
 use crate::endianness::Endianness;
 
 #[napi]
-pub struct Int32();
+pub struct Float32();
 
 #[napi]
-impl Int32 {
+impl Float32 {
   /**
-   * Read a unsigned 32-bit integer (i32) from the BinaryStream.
+   * Read a 32-bit floating point number (f32) from the BinaryStream.
   */
   #[napi]
-  pub fn read(stream: &mut BinaryStream, endian: Option<Endianness>) -> Result<i32> {
+  pub fn read(stream: &mut BinaryStream, endian: Option<Endianness>) -> Result<f64> {
     // Provide a default endianness if not specified
     let endian = endian.unwrap_or(Endianness::Big);
 
@@ -23,22 +23,22 @@ impl Int32 {
       Err(err) => return Err(err),
     };
 
-    // Convert the bytes to i32 based on endianness
+    // Convert the bytes to f32 based on endianness
     match endian {
-      Endianness::Big => Ok(i32::from_be_bytes([bytes[0], bytes[1], bytes[2], bytes[3]])),
-      Endianness::Little => Ok(i32::from_le_bytes([bytes[0], bytes[1], bytes[2], bytes[3]])),
+      Endianness::Big => Ok(f32::from_be_bytes([bytes[0], bytes[1], bytes[2], bytes[3]]).into()),
+      Endianness::Little => Ok(f32::from_le_bytes([bytes[0], bytes[1], bytes[2], bytes[3]]).into()),
     }
   }
 
   /**
-   * Write a unsigned 32-bit integer (i32) to the BinaryStream.
+   * Write a 32-bit floating point number (f32) to the BinaryStream.
   */
   #[napi]
-  pub fn write(stream: &mut BinaryStream, value: i32, endian: Option<Endianness>) -> Result<()> {
+  pub fn write(stream: &mut BinaryStream, value: f64, endian: Option<Endianness>) -> Result<()> {
     // Provide a default endianness if not specified
     let endian = endian.unwrap_or(Endianness::Big);
 
-    // Convert the i32 value to bytes based on endianness
+    // Convert the f32 value to bytes based on endianness
     let bytes = match endian {
       Endianness::Big => value.to_be_bytes(),
       Endianness::Little => value.to_le_bytes(),

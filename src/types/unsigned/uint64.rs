@@ -1,65 +1,57 @@
-use napi_derive::napi;
-use napi::{bindgen_prelude::FromNapiValue, Result};
 use napi::bindgen_prelude::BigInt;
-use crate::binary::{ BinaryStream, Endianness };
+use napi::Result;
+use napi_derive::napi;
+
+use crate::stream::BinaryStream;
+use crate::endianness::Endianness;
 
 #[napi]
-#[derive(Clone)]
-/**
- * **Uint64**
- * 
- * Represents an unsigned 64-bit ( 8 bytes ) integer. ( 0 to 18446744073709551615 )
-*/
-pub struct Uint64 {}
+pub struct Uint64();
 
 #[napi]
 impl Uint64 {
-  #[napi]
   /**
-   * **read**
-   * 
-   * Reads an unsigned 64-bit ( 8 bytes ) integer from the stream. ( 0 to 18446744073709551615 )
+   * Read a unsigned 64-bit integer (u64) from the BinaryStream.
   */
+  #[napi]
   pub fn read(stream: &mut BinaryStream, endian: Option<Endianness>) -> Result<BigInt> {
-    let endian = match endian {
-      Some(endian) => endian,
-      None => Endianness::Big,
-    };
+    // Provide a default endianness if not specified
+    let endian = endian.unwrap_or(Endianness::Big);
 
+    // Read 8 bytes from the stream
     let bytes = match stream.read(8) {
       Ok(bytes) => bytes,
-      Err(err) => return Err(err)
+      Err(err) => return Err(err),
     };
 
-    match endian {
-      Endianness::Big => Ok(BigInt::from(u64::from_be_bytes([bytes[0], bytes[1], bytes[2], bytes[3], bytes[4], bytes[5], bytes[6], bytes[7]]))),
-      Endianness::Little => Ok(BigInt::from(u64::from_le_bytes([bytes[0], bytes[1], bytes[2], bytes[3], bytes[4], bytes[5], bytes[6], bytes[7]]))),
-    }
+    // Convert the bytes to u64 based on endianness
+    let value = match endian {
+      Endianness::Big => u64::from_be_bytes([bytes[0], bytes[1], bytes[2], bytes[3], bytes[4], bytes[5], bytes[6], bytes[7]]),
+      Endianness::Little => u64::from_le_bytes([bytes[0], bytes[1], bytes[2], bytes[3], bytes[4], bytes[5], bytes[6], bytes[7]]),
+    };
+
+    // Return the value as BigInt
+    Ok(BigInt::from(value))
   }
 
-  #[napi]
   /**
-   * **write**
-   * 
-   * Writes an unsigned 64-bit ( 8 bytes ) integer to the stream. ( 0 to 18446744073709551615 )
+   * Write a unsigned 64-bit integer (u64) to the BinaryStream.
   */
-  pub fn write(stream: &mut BinaryStream, value: BigInt, endian: Option<Endianness>) {
-    let endian = match endian {
-      Some(endian) => endian,
-      None => Endianness::Big,
+  #[napi]
+  pub fn write(stream: &mut BinaryStream, value: BigInt, endian: Option<Endianness>) -> Result<()> {
+    // Provide a default endianness if not specified
+    let endian = endian.unwrap_or(Endianness::Big);
+
+    // Convert the u64 value to bytes based on endianness
+    let bytes = match endian {
+      Endianness::Big => value.get_u64().1.to_be_bytes(),
+      Endianness::Little => value.get_u64().1.to_le_bytes(),
     };
 
-    let value = value.get_u64().1;
-    
-    match endian {
-      Endianness::Big => stream.write(value.to_be_bytes().to_vec()),
-      Endianness::Little => stream.write(value.to_le_bytes().to_vec()),
+    // Write the bytes to the stream
+    match stream.write(&bytes) {
+      Ok(_) => Ok(()),
+      Err(err) => Err(err),
     }
-  }
-}
-
-impl FromNapiValue for Uint64 {
-  unsafe fn from_napi_value(_: napi::sys::napi_env, _: napi::sys::napi_value) -> Result<Self> {
-    Ok(Uint64 {})
   }
 }

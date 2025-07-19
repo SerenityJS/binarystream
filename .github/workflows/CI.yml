@@ -1,7 +1,6 @@
 name: CI
 env:
   DEBUG: napi:*
-  APP_NAME: binarystream
   MACOSX_DEPLOYMENT_TARGET: '10.13'
 permissions:
   contents: write

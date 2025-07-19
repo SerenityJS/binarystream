@@ -1,62 +1,53 @@
+use napi::Result;
 use napi_derive::napi;
-use napi::{bindgen_prelude::FromNapiValue, Result};
-use crate::binary::{ BinaryStream, Endianness };
+
+use crate::stream::BinaryStream;
+use crate::endianness::Endianness;
 
 #[napi]
-#[derive(Clone)]
-/**
- * **Int16**
- * 
- * Represents a signed 16-bit ( 2 bytes ) integer. ( -32768 to 32767 )
-*/
-pub struct Int16 {}
+pub struct Int16();
 
 #[napi]
 impl Int16 {
-  #[napi]
   /**
-   * **read**
-   * 
-   * Reads a signed 16-bit ( 2 bytes ) integer from the stream. ( -32768 to 32767 )
+   * Read a unsigned 16-bit integer (i16) from the BinaryStream.
   */
+  #[napi]
   pub fn read(stream: &mut BinaryStream, endian: Option<Endianness>) -> Result<i16> {
-    let endian = match endian {
-      Some(endian) => endian,
-      None => Endianness::Big,
-    };
+    // Provide a default endianness if not specified
+    let endian = endian.unwrap_or(Endianness::Big);
 
+    // Read 2 bytes from the stream
     let bytes = match stream.read(2) {
       Ok(bytes) => bytes,
-      Err(err) => return Err(err)
+      Err(err) => return Err(err),
     };
 
+    // Convert the bytes to i16 based on endianness
     match endian {
       Endianness::Big => Ok(i16::from_be_bytes([bytes[0], bytes[1]])),
       Endianness::Little => Ok(i16::from_le_bytes([bytes[0], bytes[1]])),
     }
   }
 
-  #[napi]
   /**
-   * **write**
-   * 
-   * Writes a signed 16-bit ( 2 bytes ) integer to the stream. ( -32768 to 32767 )
+   * Write a unsigned 16-bit integer (i16) to the BinaryStream.
   */
-  pub fn write(stream: &mut BinaryStream, value: i16, endian: Option<Endianness>) {
-    let endian = match endian {
-      Some(endian) => endian,
-      None => Endianness::Big,
-    };
-    
-    match endian {
-      Endianness::Big => stream.write(value.to_be_bytes().to_vec()),
-      Endianness::Little => stream.write(value.to_le_bytes().to_vec()),
-    }
-  }
-}
+  #[napi]
+  pub fn write(stream: &mut BinaryStream, value: i16, endian: Option<Endianness>) -> Result<()> {
+    // Provide a default endianness if not specified
+    let endian = endian.unwrap_or(Endianness::Big);
 
-impl FromNapiValue for Int16 {
-  unsafe fn from_napi_value(_: napi::sys::napi_env, _: napi::sys::napi_value) -> Result<Self> {
-    Ok(Int16 {})
+    // Convert the i16 value to bytes based on endianness
+    let bytes = match endian {
+      Endianness::Big => value.to_be_bytes(),
+      Endianness::Little => value.to_le_bytes(),
+    };
+
+    // Write the bytes to the stream
+    match stream.write(&bytes) {
+      Ok(_) => Ok(()),
+      Err(err) => Err(err),
+    }
   }
 }
