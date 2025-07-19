@@ -223,5 +223,5 @@ export declare class ZigZong {
 
 export declare const enum Endianness {
   Big = 0,
-  Little = 1,
+  Little = 1
 }
