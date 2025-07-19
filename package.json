@@ -1,6 +1,6 @@
 {
   "name": "@serenityjs/binarystream",
-  "version": "2.7.3",
+  "version": "2.8.0",
   "description": "Template project for writing node package with napi-rs",
   "main": "index.js",
   "repository": "git@github.com:napi-rs/package-template.git",
