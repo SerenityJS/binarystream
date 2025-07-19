@@ -1,8 +1,8 @@
 use napi::Result;
 use napi_derive::napi;
 
-use crate::stream::BinaryStream;
 use crate::endianness::Endianness;
+use crate::stream::BinaryStream;
 use crate::types::unsigned::uint32::Uint32;
 
 #[napi]
@@ -12,7 +12,7 @@ pub struct String32();
 impl String32 {
   /**
    * Read a 32-bit string from the BinaryStream.
-  */
+   */
   #[napi]
   pub fn read(stream: &mut BinaryStream, endian: Option<Endianness>) -> Result<String> {
     // Read the length of the string (4 bytes)
@@ -36,7 +36,7 @@ impl String32 {
 
   /**
    * Write a 32-bit string to the BinaryStream.
-  */
+   */
   #[napi]
   pub fn write(stream: &mut BinaryStream, value: String, endian: Option<Endianness>) -> Result<()> {
     // Convert the string to bytes
@@ -44,7 +44,7 @@ impl String32 {
 
     // Write the length of the string (2 bytes)
     match Uint32::write(stream, bytes.len() as u32, endian) {
-      Ok(_) => {},
+      Ok(_) => {}
       Err(err) => return Err(err),
     };
 

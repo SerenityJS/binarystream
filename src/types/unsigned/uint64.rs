@@ -2,8 +2,8 @@ use napi::bindgen_prelude::BigInt;
 use napi::Result;
 use napi_derive::napi;
 
-use crate::stream::BinaryStream;
 use crate::endianness::Endianness;
+use crate::stream::BinaryStream;
 
 #[napi]
 pub struct Uint64();
@@ -12,7 +12,7 @@ pub struct Uint64();
 impl Uint64 {
   /**
    * Read a unsigned 64-bit integer (u64) from the BinaryStream.
-  */
+   */
   #[napi]
   pub fn read(stream: &mut BinaryStream, endian: Option<Endianness>) -> Result<BigInt> {
     // Provide a default endianness if not specified
@@ -26,8 +26,12 @@ impl Uint64 {
 
     // Convert the bytes to u64 based on endianness
     let value = match endian {
-      Endianness::Big => u64::from_be_bytes([bytes[0], bytes[1], bytes[2], bytes[3], bytes[4], bytes[5], bytes[6], bytes[7]]),
-      Endianness::Little => u64::from_le_bytes([bytes[0], bytes[1], bytes[2], bytes[3], bytes[4], bytes[5], bytes[6], bytes[7]]),
+      Endianness::Big => u64::from_be_bytes([
+        bytes[0], bytes[1], bytes[2], bytes[3], bytes[4], bytes[5], bytes[6], bytes[7],
+      ]),
+      Endianness::Little => u64::from_le_bytes([
+        bytes[0], bytes[1], bytes[2], bytes[3], bytes[4], bytes[5], bytes[6], bytes[7],
+      ]),
     };
 
     // Return the value as BigInt
@@ -36,7 +40,7 @@ impl Uint64 {
 
   /**
    * Write a unsigned 64-bit integer (u64) to the BinaryStream.
-  */
+   */
   #[napi]
   pub fn write(stream: &mut BinaryStream, value: BigInt, endian: Option<Endianness>) -> Result<()> {
     // Provide a default endianness if not specified

@@ -11,7 +11,7 @@ pub struct ZigZag();
 impl ZigZag {
   /**
    * Read a unsigned 32-bit variable length integer (i32) from the BinaryStream.
-  */
+   */
   #[napi]
   pub fn read(stream: &mut BinaryStream) -> Result<i32> {
     // Read a variable length integer from the stream
@@ -29,7 +29,7 @@ impl ZigZag {
 
   /**
    * Write a unsigned 32-bit variable length integer (i32) to the BinaryStream.
-  */
+   */
   #[napi]
   pub fn write(stream: &mut BinaryStream, value: i32) -> Result<()> {
     // Convert the value to ZigZag encoding

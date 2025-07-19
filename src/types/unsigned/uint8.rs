@@ -10,7 +10,7 @@ pub struct Uint8();
 impl Uint8 {
   /**
    * Read a unsigned 8-bit integer (u8) from the BinaryStream.
-  */
+   */
   #[napi]
   pub fn read(stream: &mut BinaryStream) -> Result<u8> {
     // Read a single byte from the stream
@@ -25,7 +25,7 @@ impl Uint8 {
 
   /**
    * Write a unsigned 8-bit integer (u8) to the BinaryStream.
-  */
+   */
   #[napi]
   pub fn write(stream: &mut BinaryStream, value: u8) -> Result<()> {
     // Convert the u8 value to bytes

@@ -39,7 +39,7 @@ impl ZigZong {
 impl ZigZong {
   /**
    * Read a signed 64-bit variable length integer (i64) from the BinaryStream.
-  */
+   */
   #[napi(js_name = "read")]
   pub fn read_napi(stream: &mut BinaryStream) -> Result<BigInt> {
     // Read a variable length integer from the stream
@@ -54,7 +54,7 @@ impl ZigZong {
 
   /**
    * Write a signed 64-bit variable integer (i64) to the BinaryStream.
-  */
+   */
   #[napi(js_name = "write")]
   pub fn write_napi(stream: &mut BinaryStream, value: BigInt) -> Result<()> {
     // Convert BigInt to i64

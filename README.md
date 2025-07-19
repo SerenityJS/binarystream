@@ -5,7 +5,7 @@ Binarystream is a simple Rust package designed to simplify the streaming of bina
 ## Example Usage
 
 ```ts
-import { BinaryStream } from "@serenityjs/binarystream"
+import { BinaryStream } from '@serenityjs/binarystream'
 
 // Create a new stream without a given buffer.
 const stream = new BinaryStream()
@@ -13,7 +13,7 @@ const stream = new BinaryStream()
 // Reading / Writing is allowed on the fly,
 // which will automatically update the cursor offset depending on the type of call.
 stream.writeUint8(255)
-stream.writeString16("Hello, World!")
+stream.writeString16('Hello, World!')
 
 // Converting the stream to a buffer!
 const buffer = stream.getBuffer()
@@ -24,5 +24,4 @@ const output = new BinaryStream(buffer)
 // Reading the data in order.
 stream.readUint8() // Expected output: 255
 stream.readString16() // Expected output: "Hello, World!"
-
 ```

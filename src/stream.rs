@@ -1,17 +1,20 @@
 use napi_derive::napi;
 
-use napi::{bindgen_prelude::{BufferSlice, JsValuesTuple}, Env, Result};
+use napi::{
+  bindgen_prelude::{BufferSlice, JsValuesTuple},
+  Env, Result,
+};
 
 #[napi]
 pub struct BinaryStream<'env> {
   /**
    * The buffer reference that this stream will read/write to.
-  */
+   */
   buffer: BufferSlice<'env>,
 
   /**
    * The current offset in the buffer where the next read/write will occur.
-  */
+   */
   offset: usize,
 }
 
@@ -67,7 +70,7 @@ impl<'env> BinaryStream<'env> {
 
   /**
    * Returns the current offset in the stream.
-  */
+   */
   #[napi(js_name = "getOffset")]
   pub fn get_offset_napi(&self) -> Result<u32> {
     // Cast the offset to u32 and return it
@@ -77,7 +80,7 @@ impl<'env> BinaryStream<'env> {
   /**
    * Sets the current offset in the stream.
    * If the offset is out of bounds, it returns an error.
-  */
+   */
   #[napi(js_name = "setOffset")]
   pub fn set_offset_napi(&mut self, offset: u32) -> Result<()> {
     // Check if the offset is within the bounds of the buffer
@@ -113,7 +116,7 @@ impl<'env> BinaryStream<'env> {
     Ok(())
   }
 
-    #[napi(js_name = "read")]
+  #[napi(js_name = "read")]
   pub fn read_napi(&mut self, length: u32) -> Result<BufferSlice<'env>> {
     // Check if the read will exceed the buffer length
     if self.offset + length as usize > self.buffer.len() {
@@ -133,8 +136,8 @@ impl<'env> BinaryStream<'env> {
     let env = &Env::from_raw(self.buffer.env());
 
     // Create a BufferSlice from the slice
-    let buffer = BufferSlice::from_data(env, slice)
-      .expect("Failed to create BufferSlice from data");
+    let buffer =
+      BufferSlice::from_data(env, slice).expect("Failed to create BufferSlice from data");
 
     // Return the slice as a BufferSlice
     Ok(buffer)
@@ -142,7 +145,7 @@ impl<'env> BinaryStream<'env> {
 
   /**
    * Checks if the stream has reached the end of the buffer.
-  */
+   */
   #[napi]
   pub fn feof(&self) -> bool {
     // Check if the current offset is at the end of the buffer
@@ -151,7 +154,7 @@ impl<'env> BinaryStream<'env> {
 
   /**
    * Resets the stream's offset to the beginning of the buffer.
-  */
+   */
   #[napi]
   pub fn reset(&mut self) {
     // Reset the offset to 0

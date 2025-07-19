@@ -60,7 +60,7 @@ impl VarLong {
 
       // Write the byte to the stream
       match Uint8::write(stream, byte) {
-        Ok(_) => {},
+        Ok(_) => {}
         Err(err) => return Err(err),
       }
 
@@ -78,7 +78,7 @@ impl VarLong {
 impl VarLong {
   /**
    * Read a unsigned 64-bit variable length integer (u64) from the BinaryStream.
-  */
+   */
   #[napi(js_name = "read")]
   pub fn read_napi(stream: &mut BinaryStream) -> Result<BigInt> {
     // Read a variable length integer from the stream
@@ -93,7 +93,7 @@ impl VarLong {
 
   /**
    * Write a unsigned 64-bit variable integer (u64) to the BinaryStream.
-  */
+   */
   #[napi(js_name = "write")]
   pub fn write_napi(stream: &mut BinaryStream, value: BigInt) -> Result<()> {
     // Convert BigInt to u64

@@ -1,8 +1,8 @@
 use napi::Result;
 use napi_derive::napi;
 
-use crate::stream::BinaryStream;
 use crate::endianness::Endianness;
+use crate::stream::BinaryStream;
 
 #[napi]
 pub struct Uint32();
@@ -11,7 +11,7 @@ pub struct Uint32();
 impl Uint32 {
   /**
    * Read a unsigned 32-bit integer (u32) from the BinaryStream.
-  */
+   */
   #[napi]
   pub fn read(stream: &mut BinaryStream, endian: Option<Endianness>) -> Result<u32> {
     // Provide a default endianness if not specified
@@ -32,7 +32,7 @@ impl Uint32 {
 
   /**
    * Write a unsigned 32-bit integer (u32) to the BinaryStream.
-  */
+   */
   #[napi]
   pub fn write(stream: &mut BinaryStream, value: u32, endian: Option<Endianness>) -> Result<()> {
     // Provide a default endianness if not specified

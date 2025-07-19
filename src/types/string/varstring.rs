@@ -11,7 +11,7 @@ pub struct VarString();
 impl VarString {
   /**
    * Read a 32-bit variable length string from the BinaryStream.
-  */
+   */
   #[napi]
   pub fn read(stream: &mut BinaryStream) -> Result<String> {
     // Read the length of the string (4 bytes)
@@ -35,7 +35,7 @@ impl VarString {
 
   /**
    * Write a 32-bit variable length string to the BinaryStream.
-  */
+   */
   #[napi]
   pub fn write(stream: &mut BinaryStream, value: String) -> Result<()> {
     // Convert the string to bytes
@@ -43,7 +43,7 @@ impl VarString {
 
     // Write the length of the string (2 bytes)
     match VarInt::write(stream, bytes.len() as u32) {
-      Ok(_) => {},
+      Ok(_) => {}
       Err(err) => return Err(err),
     };
 

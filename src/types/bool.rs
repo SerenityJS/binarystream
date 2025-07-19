@@ -10,7 +10,7 @@ pub struct Bool();
 impl Bool {
   /**
    * Read a boolean value (u8) from the BinaryStream.
-  */
+   */
   #[napi]
   pub fn read(stream: &mut BinaryStream) -> Result<bool> {
     // Read a single byte from the stream
@@ -25,7 +25,7 @@ impl Bool {
 
   /**
    * Write a boolean value (u8) to the BinaryStream.
-  */
+   */
   #[napi]
   pub fn write(stream: &mut BinaryStream, value: bool) -> Result<()> {
     // Convert the boolean value to a byte (1 for true, 0 for false)
