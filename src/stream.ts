@@ -1,3 +1,4 @@
+import { Endianness } from "./endianness";
 import * as Types from "./types";
 
 class BinaryStream {
@@ -86,66 +87,74 @@ class BinaryStream {
 
   /**
    * Read a 16-bit unsigned integer (u16) from the stream.
+   * @param endian The endianness to use for reading.
    * @returns The read 16-bit unsigned integer.
    */
-  public readUint16(): number {
-    return Types.Uint16.read(this);
+  public readUint16(endian?: Endianness): number {
+    return Types.Uint16.read(this, { endian });
   }
 
   /**
    * Write a 16-bit unsigned integer (u16) to the stream.
    * @param value The 16-bit unsigned integer to write.
+   * @param endian The endianness to use for writing.
    */
-  public writeUint16(value: number): void {
-    Types.Uint16.write(this, value);
+  public writeUint16(value: number, endian?: Endianness): void {
+    Types.Uint16.write(this, value, { endian });
   }
 
   /**
    * Read a 24-bit unsigned integer (u24) from the stream.
+   * @param endian The endianness to use for reading.
    * @returns The read 24-bit unsigned integer.
    */
-  public readUint24(): number {
-    return Types.Uint24.read(this);
+  public readUint24(endian?: Endianness): number {
+    return Types.Uint24.read(this, { endian });
   }
 
   /**
    * Write a 24-bit unsigned integer (u24) to the stream.
    * @param value The 24-bit unsigned integer to write.
+   * @param endian The endianness to use for writing.
    */
-  public writeUint24(value: number): void {
-    Types.Uint24.write(this, value);
+  public writeUint24(value: number, endian?: Endianness): void {
+    Types.Uint24.write(this, value, { endian });
   }
 
   /**
    * Read a 32-bit unsigned integer (u32) from the stream.
+   * @param endian The endianness to use for reading.
    * @returns The read 32-bit unsigned integer.
    */
-  public readUint32(): number {
-    return Types.Uint32.read(this);
+  public readUint32(endian?: Endianness): number {
+    return Types.Uint32.read(this, {endian });
   }
 
   /**
    * Write a 32-bit unsigned integer (u32) to the stream.
    * @param value The 32-bit unsigned integer to write.
+   * @param endian The endianness to use for writing.
    */
-  public writeUint32(value: number): void {
-    Types.Uint32.write(this, value);
+  public writeUint32(value: number, endian?: Endianness): void {
+    Types.Uint32.write(this, value, { endian });
   }
 
   /**
    * Read a 64-bit unsigned integer (u64) from the stream.
+   * @param endian The endianness to use for reading.
    * @returns The read 64-bit unsigned integer.
    */
-  public readUint64(): bigint {
-    return Types.Uint64.read(this);
+  public readUint64(endian?: Endianness): bigint {
+    return Types.Uint64.read(this, { endian });
   }
 
   /**
    * Write a 64-bit unsigned integer (u64) to the stream.
    * @param value The 64-bit unsigned integer to write.
+   * @param endian The endianness to use for writing.
    */
-  public writeUint64(value: bigint): void {
-    Types.Uint64.write(this, value);
+  public writeUint64(value: bigint, endian?: Endianness): void {
+    Types.Uint64.write(this, value, { endian });
   }
 
   /**
@@ -198,66 +207,74 @@ class BinaryStream {
 
   /**
    * Read a 16-bit signed integer (i16) from the stream.
+   * @param endian The endianness to use for reading.
    * @returns The read 16-bit signed integer.
    */
-  public readInt16(): number {
-    return Types.Int16.read(this);
+  public readInt16(endian?: Endianness): number {
+    return Types.Int16.read(this, { endian });
   }
 
   /**
    * Write a 16-bit signed integer (i16) to the stream.
    * @param value The 16-bit signed integer to write.
+   * @param endian The endianness to use for writing.
    */
-  public writeInt16(value: number): void {
-    Types.Int16.write(this, value);
+  public writeInt16(value: number, endian?: Endianness): void {
+    Types.Int16.write(this, value, { endian });
   }
 
   /**
    * Read a 24-bit signed integer (i24) from the stream.
+   * @param endian The endianness to use for reading.
    * @returns The read 24-bit signed integer.
    */
-  public readInt24(): number {
-    return Types.Int24.read(this);
+  public readInt24(endian?: Endianness): number {
+    return Types.Int24.read(this, { endian });
   }
 
   /**
    * Write a 24-bit signed integer (i24) to the stream.
    * @param value The 24-bit signed integer to write.
+   * @param endian The endianness to use for writing.
    */
-  public writeInt24(value: number): void {
-    Types.Int24.write(this, value);
+  public writeInt24(value: number, endian?: Endianness): void {
+    Types.Int24.write(this, value, { endian });
   }
 
   /**
    * Read a 32-bit signed integer (i32) from the stream.
+   * @param endian The endianness to use for reading.
    * @returns The read 32-bit signed integer.
    */
-  public readInt32(): number {
-    return Types.Int32.read(this);
+  public readInt32(endian?: Endianness): number {
+    return Types.Int32.read(this, { endian });
   }
 
   /**
    * Write a 32-bit signed integer (i32) to the stream.
    * @param value The 32-bit signed integer to write.
+   * @param endian The endianness to use for writing.
    */
-  public writeInt32(value: number): void {
-    Types.Int32.write(this, value);
+  public writeInt32(value: number, endian?: Endianness): void {
+    Types.Int32.write(this, value, { endian });
   }
 
   /**
    * Read a 64-bit signed integer (i64) from the stream.
+   * @param endian The endianness to use for reading.
    * @returns The read 64-bit signed integer.
    */
-  public readInt64(): bigint {
-    return Types.Int64.read(this);
+  public readInt64(endian?: Endianness): bigint {
+    return Types.Int64.read(this, { endian });
   }
 
   /**
    * Write a 64-bit signed integer (i64) to the stream.
    * @param value The 64-bit signed integer to write.
+   * @param endian The endianness to use for writing.
    */
-  public writeInt64(value: bigint): void {
-    Types.Int64.write(this, value);
+  public writeInt64(value: bigint, endian?: Endianness): void {
+    Types.Int64.write(this, value, { endian });
   }
 
   /**
@@ -294,50 +311,56 @@ class BinaryStream {
 
   /**
    * Read a 32-bit floating point number from the stream.
+   * @param endian The endianness to use for reading.
    * @returns The read 32-bit float.
    */
-  public readFloat32(): number {
-    return Types.Float32.read(this);
+  public readFloat32(endian?: Endianness): number {
+    return Types.Float32.read(this, { endian });
   }
 
   /**
    * Write a 32-bit floating point number to the stream.
    * @param value The 32-bit float to write.
+   * @param endian The endianness to use for writing.
    */
-  public writeFloat32(value: number): void {
-    Types.Float32.write(this, value);
+  public writeFloat32(value: number, endian?: Endianness): void {
+    Types.Float32.write(this, value, { endian });
   }
 
   /**
    * Read a 16-bit string from the stream.
+   * @param endian The endianness to use for reading.
    * @returns The read string.
    */
-  public readString16(): string {
-    return Types.String16.read(this);
+  public readString16(endian?: Endianness): string {
+    return Types.String16.read(this, { endian });
   }
 
   /**
    * Write a 16-bit string to the stream.
    * @param value The string to write.
+   * @param endian The endianness to use for writing.
    */
-  public writeString16(value: string): void {
-    Types.String16.write(this, value);
+  public writeString16(value: string, endian?: Endianness): void {
+    Types.String16.write(this, value, { endian });
   }
 
   /**
    * Read a 32-bit string from the stream.
+   * @param endian The endianness to use for reading.
    * @returns The read string.
    */
-  public readString32(): string {
-    return Types.String32.read(this);
+  public readString32(endian?: Endianness): string {
+    return Types.String32.read(this, { endian });
   }
 
   /**
    * Write a 32-bit string to the stream.
    * @param value The string to write.
+   * @param endian The endianness to use for writing.
    */
-  public writeString32(value: string): void {
-    Types.String32.write(this, value);
+  public writeString32(value: string, endian?: Endianness): void {
+    Types.String32.write(this, value, { endian });
   }
 
   /**
