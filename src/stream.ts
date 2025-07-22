@@ -17,8 +17,8 @@ class BinaryStream {
    * Create a new BinaryStream instance.
    * @param buffer The buffer to use for this stream.
    */
-  public constructor(buffer: Buffer) {
-    this.buffer = buffer;
+  public constructor(buffer?: Buffer) {
+    this.buffer = buffer || Buffer.alloc(0);
   }
 
   /**
