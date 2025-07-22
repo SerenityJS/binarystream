@@ -29,8 +29,8 @@ class BinaryStream {
    */
   public read(length: number): Buffer {
     // Validate the offset before reading
-    if (this.offset + length > this.buffer.length) {
-      throw new Error('Attempt to read beyond buffer length');
+    if (!this.validateOffset(length)) {
+      throw new Error('Read exceeds buffer length');
     }
 
     // Read the bytes from the current offset
@@ -49,8 +49,8 @@ class BinaryStream {
    */
   public write(data: Buffer): void {
     // Validate the offset before writing
-    if (this.offset + data.length > this.buffer.length) {
-      throw new Error('Attempt to write beyond buffer length');
+    if (!this.validateOffset(data.length)) {
+      throw new Error('Write exceeds buffer length');
     }
 
     // Write the data to the current offset
