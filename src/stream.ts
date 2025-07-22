@@ -93,6 +93,15 @@ class BinaryStream {
   }
 
   /**
+   * Check if the offset is at the end of the buffer.
+   * @returns Whether the offset is at the end.
+   */
+  public feof(): boolean {
+    // Check if the current offset is at the end of the buffer
+    return this.offset >= this.buffer.length;
+  }
+
+  /**
    * Read a 8-bit unsigned integer (u8) from the stream.
    * @returns The read 8-bit unsigned integer.
    */
