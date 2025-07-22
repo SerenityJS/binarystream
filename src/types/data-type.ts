@@ -10,6 +10,13 @@ interface DataTypeOptions {
 
 class DataType {
   /**
+   * Default constructor for DataType.
+   */
+  public constructor(..._: Array<unknown>) {
+    return;
+  }
+
+  /**
    * Read a value from the stream.
    * @param stream The BinaryStream to read from.
    * @param options Options for reading the data type, such as endianness.
