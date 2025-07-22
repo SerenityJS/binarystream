@@ -2,10 +2,11 @@ import { Endianness } from "./endianness";
 import * as Types from "./types";
 
 class BinaryStream {
+
   /**
    * The buffer that this stream operates on.
   */
-  public readonly buffer: Buffer;
+  public buffer: Buffer;
 
   /**
    * The current offset in the buffer from which to read or write data.
@@ -65,8 +66,30 @@ class BinaryStream {
    * @returns True if the offset is valid, false otherwise.
    */
   public validateOffset(length: number): boolean {
-    // Check if the current offset plus the length exceeds the buffer length
-    return this.offset + length <= this.buffer.length;
+    // Resize the buffer if necessary
+    if (this.offset + length > this.buffer.length) {
+      // Create a new buffer with the required size
+      const buffer = Buffer.alloc(this.offset + length * 8);
+
+      // Copy the existing data to the new buffer
+      buffer.set(this.buffer);
+
+      // Update the stream's buffer to the new buffer
+      this.buffer = buffer;
+    } else if (this.offset < 0) return false;
+    
+
+    // Return true if the offset is valid
+    return true;
+  }
+
+  /**
+   * Get the current buffer of the stream.
+   * @returns The current buffer up to the current offset.
+   */
+  public getBuffer(): Buffer {
+    // Return a subarray of the buffer up to the current offset
+    return this.buffer.subarray(0, this.offset);
   }
 
   /**
