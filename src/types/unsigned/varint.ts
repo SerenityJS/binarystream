@@ -13,7 +13,7 @@ class VarInt extends DataType {
    */
   public static read(stream: BinaryStream): number {
     // Prepare the value and size variables
-    let value = 0;
+    let value = 0n;
 
     // Iterate through the stream to read bytes until we reach the end of the VarInt
     for (let i = 0; i < this.SIZE; i++) {
@@ -21,14 +21,14 @@ class VarInt extends DataType {
       let byte = stream.buffer[stream.offset++] || 0;
 
       // Shift the value and add the byte
-      value |= (byte & 0x7F) << (i * 7);
+      value |= (BigInt(byte) & 0x7Fn) << (BigInt(i) * 7n);
 
       // Check if the continuation bit is not set, we are done
-      if ((byte & 0x80) === 0) break;
+      if ((byte & 0x80) === 0) return Number(value)
     }
 
-    // Return the decoded value
-    return value;
+    // Throw an error if we exceed the maximum size
+    throw new Error('VarInt exceeds maximum size');
   }
 
   /**
@@ -37,6 +37,9 @@ class VarInt extends DataType {
    * @param value The unsigned integer value to write.
    */
   public static write(stream: BinaryStream, value: number): void {
+    // Ensure the value is unsigned
+    value = value >>> 0;
+
     // Validate the offset before writing
     if (!stream.validateOffset(this.SIZE)) {
       throw new Error('Write exceeds buffer length');
@@ -51,7 +54,7 @@ class VarInt extends DataType {
       } else {
         // Write the last byte without the continuation bit
         stream.buffer[stream.offset++] = value & 0x7F;
-        break; // Break the loop as we are done
+        return; // Return as we are done
       }
 
       // Shift the value right by 7 bits for the next iteration

@@ -24,11 +24,11 @@ class VarLong extends DataType {
       value |= (BigInt(byte) & 0x7Fn) << (BigInt(i) * 7n);
 
       // Check if the continuation bit is not set, we are done
-      if ((byte & 0x80) === 0) break;
+      if ((byte & 0x80) === 0) return value
     }
 
-    // Return the decoded value
-    return value;
+    // Throw an error if we exceed the maximum size
+    throw new Error('VarLong exceeds maximum size');
   }
 
   /**
@@ -37,6 +37,9 @@ class VarLong extends DataType {
    * @param value The unsigned integer value to write.
    */
   public static write(stream: BinaryStream, value: bigint): void {
+    // Ensure the value is unsigned
+    value = value >> 0n;
+
     // Validate the offset before writing
     if (!stream.validateOffset(this.SIZE)) {
       throw new Error('Write exceeds buffer length');

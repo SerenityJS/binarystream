@@ -14,13 +14,13 @@ class ZigZag extends DataType {
    */
   public static read(stream: BinaryStream): number {
     // Read a variable-length integer from the stream
-    let value = VarInt.read(stream);
+    let value = BigInt(VarInt.read(stream));
 
     // Decode the ZigZag encoding
-    value = (value >> 1) ^ (-(value & 1));
+    value = (value >> 1n) ^ (-(value & 1n));
 
     // Return the decoded value
-    return value;
+    return Number(value);
   }
 
   /**
