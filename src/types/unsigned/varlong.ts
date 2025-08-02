@@ -14,26 +14,18 @@ class VarLong extends DataType {
   public static read(stream: BinaryStream): bigint {
     // Prepare the value and size variables
     let value = 0n;
-    let size = 0n;
 
-    // Prepare a variable to hold the byte read from the stream
-    let byte: bigint;
-
-    // Loop to read bytes until the continuation bit is not set
-    do {
+    // Iterate through the stream to read bytes until we reach the end of the VarInt
+    for (let i = 0; i < this.SIZE; i++) {
       // Read the next byte from the stream
-      byte = BigInt(stream.buffer[stream.offset++] || 0n);
+      let byte = stream.buffer[stream.offset++] || 0;
 
       // Shift the value and add the byte
-      value |= (byte & 0x7Fn) << (size * 7n);
-      size++;
+      value |= (BigInt(byte) & 0x7Fn) << (BigInt(i) * 7n);
 
-      // Check if we have read too many bytes
-      if (size > this.SIZE) throw new Error('VarLong too long');
-
-      // If the continuation bit is not set, we are done
-      if ((byte & 0x80n) === 0n) break;
-    } while ((byte & 0x80n) !== 0n)
+      // Check if the continuation bit is not set, we are done
+      if ((byte & 0x80) === 0) break;
+    }
 
     // Return the decoded value
     return value;
@@ -50,23 +42,21 @@ class VarLong extends DataType {
       throw new Error('Write exceeds buffer length');
     }
 
-    // Prepare a variable to hold the byte to write
-    let byte: bigint;
+    // Iterate through the maximum size of the VarInt
+    for (let i = 0; i < this.SIZE; i++) {
+      // Check if the value is still greater than 0x7F
+      if (value >> 7n !== 0n) {
+        // Write the byte with the continuation bit set
+        stream.buffer[stream.offset++] = Number((value & 0x7Fn) | 0x80n);
+      } else {
+        // Write the last byte without the continuation bit
+        stream.buffer[stream.offset++] = Number(value & 0x7Fn);
+        break; // Break the loop as we are done
+      }
 
-    // Loop to write bytes until the value is zero
-    do {
-      // Get the next byte to write
-      byte = value & 0x7Fn;
-
-      // If there are more bits to write, set the continuation bit
-      if (value > 0x7Fn) byte |= 0x80n;
-
-      // Write the byte to the stream
-      stream.buffer[stream.offset++] = Number(byte);
-
-      // Shift the value right by 7 bits
+      // Shift the value right by 7 bits for the next iteration
       value >>= 7n;
-    } while (value > 0);
+    }
   }
 }
 

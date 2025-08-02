@@ -14,26 +14,18 @@ class VarInt extends DataType {
   public static read(stream: BinaryStream): number {
     // Prepare the value and size variables
     let value = 0;
-    let size = 0;
 
-    // Prepare a variable to hold the byte read from the stream
-    let byte: number;
-
-    // Loop to read bytes until the continuation bit is not set
-    do {
+    // Iterate through the stream to read bytes until we reach the end of the VarInt
+    for (let i = 0; i < this.SIZE; i++) {
       // Read the next byte from the stream
-      byte = stream.buffer[stream.offset++] || 0;
+      let byte = stream.buffer[stream.offset++] || 0;
 
       // Shift the value and add the byte
-      value |= (byte & 0x7F) << (size * 7);
-      size++;
+      value |= (byte & 0x7F) << (i * 7);
 
-      // Check if we have read too many bytes
-      if (size > this.SIZE) throw new Error('VarInt too long');
-
-      // If the continuation bit is not set, we are done
+      // Check if the continuation bit is not set, we are done
       if ((byte & 0x80) === 0) break;
-    } while ((byte & 0x80) !== 0)
+    }
 
     // Return the decoded value
     return value;
@@ -50,23 +42,21 @@ class VarInt extends DataType {
       throw new Error('Write exceeds buffer length');
     }
 
-    // Prepare a variable to hold the byte to write
-    let byte: number;
+    // Iterate through the maximum size of the VarInt
+    for (let i = 0; i < this.SIZE; i++) {
+      // Check if the value is still greater than 0x7F
+      if (value >> 7 !== 0) {
+        // Write the byte with the continuation bit set
+        stream.buffer[stream.offset++] = (value & 0x7F) | 0x80;
+      } else {
+        // Write the last byte without the continuation bit
+        stream.buffer[stream.offset++] = value & 0x7F;
+        break; // Break the loop as we are done
+      }
 
-    // Loop to write bytes until the value is zero
-    do {
-      // Get the next byte to write
-      byte = value & 0x7F;
-
-      // If there are more bits to write, set the continuation bit
-      if (value > 0x7F) byte |= 0x80;
-
-      // Write the byte to the stream
-      stream.buffer[stream.offset++] = byte;
-
-      // Shift the value right by 7 bits
-      value >>= 7;
-    } while (value > 0);
+      // Shift the value right by 7 bits for the next iteration
+      value >>>= 7;
+    }
   }
 }
 
