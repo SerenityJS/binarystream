@@ -3,4 +3,5 @@ export * from "./signed";
 export * from "./unsigned";
 export * from "./string";
 export * from "./float32";
+export * from "./float64";
 export * from "./bool";

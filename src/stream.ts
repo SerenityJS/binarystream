@@ -360,6 +360,24 @@ class BinaryStream {
   }
 
   /**
+   * Read a 64-bit floating point number from the stream.
+   * @param endian The endianness to use for reading.
+   * @returns The read 64-bit float.
+  */
+  public readFloat64(endian?: Endianness): number {
+    return Types.Float64.read(this, { endian });
+  }
+
+  /**
+   * Write a 64-bit floating point number to the stream.
+   * @param value The 64-bit float to write.
+   * @param endian The endianness to use for writing.
+  */
+  public writeFloat64(value: number, endian?: Endianness): void {
+    Types.Float64.write(this, value, { endian });
+  }
+
+  /**
    * Read a 16-bit string from the stream.
    * @param endian The endianness to use for reading.
    * @returns The read string.
